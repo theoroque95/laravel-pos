@@ -15,7 +15,6 @@
   <![endif]-->
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/AdminLTE.css">
   <link rel="stylesheet" href="css/app.css">
 
 </head>

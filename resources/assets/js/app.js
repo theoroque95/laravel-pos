@@ -19,7 +19,6 @@ require('./plugins/bootstrap-timepicker.min');
 require('./plugins/icheck.min');
 require('./plugins/pace.min');
 require('../../../bower_components/raphael/raphael.min');
-// require('../../../node_modules/moment/moment');
 require('../../../bower_components/morris.js/morris.min');
 
 import moment from 'moment';
