@@ -11,7 +11,6 @@ require('../../../bower_components/jquery-slimscroll/jquery.slimscroll.min');
 require('../../../bower_components/jquery-sparkline/dist/jquery.sparkline.min');
 require('../../../bower_components/jquery-knob/dist/jquery.knob.min');
 require('./plugins/jquery-jvectormap-1.2.2.min');
-require('../../../bower_components/moment/min/moment.min');
 require('../../../bower_components/bootstrap-daterangepicker/daterangepicker');
 require('../../../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min');
 require('../../../bower_components/fastclick/lib/fastclick');
@@ -20,7 +19,11 @@ require('./plugins/bootstrap-timepicker.min');
 require('./plugins/icheck.min');
 require('./plugins/pace.min');
 require('../../../bower_components/raphael/raphael.min');
+// require('../../../node_modules/moment/moment');
 require('../../../bower_components/morris.js/morris.min');
+
+import moment from 'moment';
+import 'moment/locale/en-gb';
 
 require('./BoxRefresh');
 require('./BoxWidget');
