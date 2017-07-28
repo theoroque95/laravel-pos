@@ -16,7 +16,6 @@ require('../../../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepi
 require('../../../bower_components/fastclick/lib/fastclick');
 require('./plugins/bootstrap-slider');
 require('./plugins/bootstrap-timepicker.min');
-require('./plugins/icheck.min');
 require('./plugins/pace.min');
 require('../../../bower_components/raphael/raphael.min');
 require('../../../bower_components/morris.js/morris.min');
