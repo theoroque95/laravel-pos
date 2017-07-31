@@ -19,6 +19,9 @@ require('./plugins/bootstrap-timepicker.min');
 require('./plugins/pace.min');
 require('../../../bower_components/raphael/raphael.min');
 require('../../../bower_components/morris.js/morris.min');
+require('./plugins/jquery.inputmask');
+require('./plugins/jquery.inputmask.date.extensions');
+require('./plugins/jquery.inputmask.extensions');
 
 import moment from 'moment';
 import 'moment/locale/en-gb';
@@ -26,13 +29,15 @@ import 'moment/locale/en-gb';
 require('./BoxRefresh');
 require('./BoxWidget');
 require('./ControlSidebar');
-require('./DirectChat');
 require('./Layout');
 require('./PushMenu');
-require('./TodoList');
 require('./Tree');
 
 require('./adminlte.min');
 require('./dashboard');
 
 $.widget.bridge('uibutton', $.ui.button);
+
+/*
+ * CUSTOM FUNCTIONS
+ */
