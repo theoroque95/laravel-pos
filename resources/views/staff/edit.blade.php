@@ -4,26 +4,24 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
     <section class="content-header">
-		<h1><i class="fa fa-user"> Staff ID: {{ $user->id }}</i></h1>
-		<br>
-		<a href="/staff"> < Back</a>
+		<h4><a href="/staff"><i class="fa fa-caret-left"></i> Back</a></h4>
     </section>
 
 	<!-- Main content -->
 	<section class="content">
 		@include('partials.notification')
-		@include('partials.error')
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-6">
 			  <!-- general form elements -->
 			  <div class="box box-primary">
 			    <div class="box-header with-border">
-			      <h3 class="box-title">Edit Information</h3>
+			      <h3 class="box-title">Edit Information of Staff # {{ $user->id }}</h3>
 			    </div>
 			    <!-- /.box-header -->
 			    <!-- form start -->
 			    <form role="form" method="POST" action="/staff/{{$user->id}}">
+			    	{{ csrf_field() }}
 			      <div class="box-body">
 			      	<div class="form-group">
 			          <label for="username">Username</label>
@@ -56,7 +54,7 @@
 					</div>
 					<div class="form-group">
 			          <label for="address">Address</label>
-			          <input type="text" class="form-control" id="address" placeholder="Enter Address" value="{{ $user->address }}">
+			          <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address" value="{{ $user->address }}">
 			        </div>
 			        <div class="checkbox">
 			          <label>
@@ -65,7 +63,6 @@
 			        </div>
 			      </div>
 			      <!-- /.box-body -->
-
 			      <div class="box-footer">
 			        <button type="submit" class="btn btn-primary">Submit</button>
 			      </div>
@@ -83,18 +80,19 @@
 			    <!-- /.box-header -->
 			    <!-- form start -->
 			    <form role="form" method="POST" action="/staff/{{$user->id}}/changepassword">
+			      {{ csrf_field() }}
 			      <div class="box-body">
 			      	<div class="form-group">
-			          <label for="old_password">Current Password</label>
-			          <input type="password" class="form-control" id="old_password" placeholder="Enter old password" name="old_password">
+			          <label for="current_password">Current Password</label>
+			          <input type="password" class="form-control" id="current_password" placeholder="Enter current password" name="current_password">
 			        </div>
 			        <div class="form-group">
 			          <label for="password">New Password</label>
 			          <input type="password" class="form-control" id="password" placeholder="Enter new password" name="password">
 			        </div>
 			        <div class="form-group">
-			          <label for="confirm_password">Confirm New Password</label>
-			          <input type="password" class="form-control" id="confirm_password" placeholder="Confirm your new password" name="confirm_password">
+			          <label for="password_confirmation">Confirm New Password</label>
+			          <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm your new password" name="password_confirmation">
 			        </div>
 			      </div>
 			      <!-- /.box-body -->
@@ -104,6 +102,8 @@
 			    </form>
 			  </div>
 			  <!-- /.box -->
+				@include('partials.error')
+
 			</div>
 		</div>
 	</section>

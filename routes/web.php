@@ -28,8 +28,18 @@
 	Route::group(['prefix' => 'staff', 'as' => 'staff::'], function () {
 	    Route::get('/', 'StaffController@show');
 	    Route::get('/add', 'StaffController@add');
+	    Route::post('/add', 'StaffController@create');
 	    Route::get('/{id}', 'StaffController@edit');
 	    Route::post('/{id}', 'StaffController@update');
 	    Route::post('/{id}/changepassword', 'StaffController@changePassword');
+	});
+
+	Route::group(['prefix' => 'categories', 'as' => 'categories::'], function () {
+	    Route::get('/', 'CategoriesController@show');
+	    Route::get('/add', 'CategoriesController@add');
+	    Route::post('/add', 'CategoriesController@create');
+	    Route::get('/{id}', 'CategoriesController@edit');
+	    Route::post('/{id}', 'CategoriesController@update');
+	    Route::post('/{id}/changepassword', 'CategoriesController@changePassword');
 	});
 // });

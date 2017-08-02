@@ -23,7 +23,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-circle-o"></i> Categories</a></li>
+          <li><a href="/categories"><i class="fa fa-circle-o"></i> Categories</a></li>
           <li><a href="#"><i class="fa fa-circle-o"></i> Product Details</a></li>
         </ul>
       </li>

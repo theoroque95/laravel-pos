@@ -3,22 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use App\User;
+use App\CategoriesRef;
 use Validator;
-use Hash;
 
-class StaffController extends Controller
+class CategoriesController extends Controller
 {
     public function show() {
-    	$users = User::all();
-    	return view('staff.index')->with([
-    		'users' => $users
+    	$categories = CategoriesRef::all();
+    	return view('products.categories.index')->with([
+    		'categories' => $categories
     	]);
     }
 
     public function add() {
-    	return view('staff.add');
+    	return view('products.categories.add');
     }
 
     public function create(Request $request) {
@@ -86,26 +84,5 @@ class StaffController extends Controller
         $user->save();
 
         return redirect()->back()->with('notification', 'The user has been updated.');
-    }
-
-    public function changePassword(Request $request, $id) {
-        $validator = Validator::make($request->all(), [
-            'current_password' => 'required|string',
-            'password' => 'required|string|min:6|confirmed'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $user = User::find($id);
-        if (Hash::check($request['current_password'], $user->password)) {
-            $user->password = Hash::make($request['password']);
-            $user->save();
-
-            return redirect()->back()->with('notification', 'Password has been changed.');
-        }
-
-        return redirect()->back()->withErrors('Current password is incorrect.');
     }
 }
