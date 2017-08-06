@@ -25,21 +25,18 @@ class ProductsSeeder extends Seeder
 
     	$product1->productDetails()->create([
     		'name' => 'Hot',
-    		'description' => 'Hot White Coffee Mocha',
     		'quantity' => 16,
     		'price' => 130
     	]);
 
     	$product1->productDetails()->create([
     		'name' => 'Cold',
-    		'description' => 'Cold White Coffee Mocha',
     		'quantity' => 12,
     		'price' => 120
     	]);
 
     	$product1->productDetails()->create([
     		'name' => 'Cold',
-    		'description' => 'Cold White Coffee Mocha',
     		'quantity' => 16,
     		'price' => 140
     	]);
@@ -57,21 +54,18 @@ class ProductsSeeder extends Seeder
 
     	$product2->productDetails()->create([
     		'name' => 'Hot',
-    		'description' => 'Hot Cafe Americano',
     		'quantity' => 16,
     		'price' => 100
     	]);
 
     	$product2->productDetails()->create([
     		'name' => 'Cold',
-    		'description' => 'Cold Cafe Americano',
     		'quantity' => 12,
     		'price' => 110
     	]);
 
     	$product2->productDetails()->create([
     		'name' => 'Cold',
-    		'description' => 'Cold Cafe Americano',
     		'quantity' => 16,
     		'price' => 120
     	]);
@@ -89,14 +83,12 @@ class ProductsSeeder extends Seeder
 
     	$product3->productDetails()->create([
     		'name' => 'Cold',
-    		'description' => 'Cold Java Chip Frappe',
     		'quantity' => 12,
     		'price' => 110
     	]);
 
     	$product3->productDetails()->create([
     		'name' => 'Cold',
-    		'description' => 'Cold Java Chip Frappe',
     		'quantity' => 16,
     		'price' => 140
     	]);
@@ -114,7 +106,6 @@ class ProductsSeeder extends Seeder
 
     	$product3->productDetails()->create([
     		'name' => 'Cold',
-    		'description' => 'Cold Blueberry Soda',
     		'quantity' => 12,
     		'price' => 70
     	]);

@@ -21,68 +21,41 @@ class CategoriesController extends Controller
 
     public function create(Request $request) {
     	$validator = Validator::make($request->all(), [
-            'username' => 'required|string|min:4|max:255',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'email|max:255',
-            'phone' => 'required|numeric',
-            'birthdate' => 'required|date',
-            'address' => 'required|string|max:255',
-            'password' => 'required|string|min:6|confirmed'
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255'
         ]);
         
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $user = User::create([
-            'username' => $request['username'],
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
-            'email' => $request['email'],
-            'phone' => $request['phone'],
-            'birthdate' => Carbon::createFromFormat('d/m/Y', $request['birthdate']),
-            'address' => $request['address'],
-            'is_admin' => $request['is_admin'] == null ? false : true,
-            'password' => Hash::make($request['password'])
-        ]);
+        CategoriesRef::create($request->all());
 
-        return redirect()->back()->with('notification', 'The user has been added.');
+        return redirect()->back()->with('notification', 'The category has been added.');
     }
 
     public function edit($id) {
-    	$user = User::find($id);
-    	return view('staff.edit')->with([
-    		'user' => $user
+    	$category = CategoriesRef::find($id);
+    	return view('products.categories.edit')->with([
+    		'category' => $category
     	]);
     }
 
     public function update(Request $request, $id) {
     	$validator = Validator::make($request->all(), [
-            'username' => 'required|string|min:4|max:255',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'email|max:255',
-            'phone' => 'required|numeric',
-            'birthdate' => 'required|date',
-            'address' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $user = User::find($id);
-        $user->username = $request['username'];
-        $user->first_name = $request['first_name'];
-        $user->last_name = $request['last_name'];
-        $user->email = $request['email'];
-        $user->phone = $request['phone'];
-        $user->birthdate = Carbon::createFromFormat('d/m/Y', $request['birthdate'])->format('d/m/Y');
-        $user->address = $request['address'];
-        $user->is_admin = $request['is_admin'] == null ? false : true;
-        $user->save();
+        $category = CategoriesRef::find($id);
+        $category->name = $request['name'];
+        $category->description = $request['description'];
+        $category->save();
 
-        return redirect()->back()->with('notification', 'The user has been updated.');
+        return redirect()->back()->with('notification', 'The category has been updated.');
     }
 }

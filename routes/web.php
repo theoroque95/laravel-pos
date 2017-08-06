@@ -40,6 +40,21 @@
 	    Route::post('/add', 'CategoriesController@create');
 	    Route::get('/{id}', 'CategoriesController@edit');
 	    Route::post('/{id}', 'CategoriesController@update');
-	    Route::post('/{id}/changepassword', 'CategoriesController@changePassword');
+	});
+
+	Route::group(['prefix' => 'details', 'as' => 'details::'], function () {
+	    Route::get('/', 'ProductDetailsController@show');
+	    Route::get('/add', 'ProductDetailsController@add');
+	    Route::post('/add', 'ProductDetailsController@create');
+	    Route::get('/{id}', 'ProductDetailsController@edit');
+	    Route::post('/{id}', 'ProductDetailsController@update');
 	});
 // });
+
+Route::group(['prefix' => 'discounts', 'as' => 'discounts::'], function () {
+    Route::get('/', 'DiscountsController@show');
+    Route::get('/add', 'DiscountsController@add');
+    Route::post('/add', 'DiscountsController@create');
+    Route::get('/{id}', 'DiscountsController@edit');
+    Route::post('/{id}', 'DiscountsController@update');
+});

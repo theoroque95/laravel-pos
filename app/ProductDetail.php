@@ -14,13 +14,13 @@ class ProductDetail extends Model
      * @var array
      */
     protected $fillable = [
-        'product_id', 'name', 'description', 'quantity', 'price',
+        'product_id', 'name', 'quantity', 'price',
     ];
 
     /**
      * Get the products for a sale.
      */
     public function product() {
-        return $this->belongsTo('App\Product', 'product_id');
+        return $this->belongsTo('App\Product', 'id', 'product_id');
     }
 }

@@ -17,7 +17,6 @@ class CreateProductDetailsTable extends Migration
             $table->increments('id');
             $table->integer('product_id');
             $table->string('name');
-            $table->string('description');
             $table->integer('quantity');
             $table->float('price', 8, 2);
             $table->timestamps();

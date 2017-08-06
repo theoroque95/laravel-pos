@@ -26340,3 +26340,11 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value=orange] {
   }
 }
 
+.badge-lg {
+  font-size: 20px;
+}
+
+.badge-md {
+  font-size: 16px;
+}
+

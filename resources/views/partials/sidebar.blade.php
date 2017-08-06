@@ -23,10 +23,11 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/categories"><i class="fa fa-circle-o"></i> Categories</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Product Details</a></li>
+          <li><a href="/categories"><i class="fa fa-list"></i> Categories</a></li>
+          <li><a href="/details"><i class="fa fa-info"></i> Product Details</a></li>
         </ul>
       </li>
+      <li><a href="/discounts"><i class="fa fa-percent"></i> <span>Discounts</span></a></li>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-pie-chart"></i> <span>Reports</span>
@@ -35,10 +36,10 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-circle-o"></i> Hourly</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> X-read</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Y-read</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> C-read</a></li>
+          <li><a href="#"><i class="fa fa-hourglass-o"></i> Hour Sales</a></li>
+          <li><a href="#"><i class="fa fa-sun-o"></i> Today's Sales</a></li>
+          <li><a href="#"><i class="fa fa-clock-o"></i> Realtime Sales</a></li>
+          <li><a href="#"><i class="fa fa-calendar-o"></i> Week's Sales</a></li>
         </ul>
       </li>
 
