@@ -30,24 +30,58 @@ class ProductDetailsController extends Controller
 
     public function create(Request $request) {
     	$validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:products',
             'description' => 'required|string|max:255',
-            'percentage' => 'required|numeric'
+            'actual_quantity' => 'required|numeric',
+            'expected_quantity' => 'required|numeric',
+            'quantity_type' => 'required|numeric',
+            'category' => 'required|numeric',
+            'product_code' => 'required|string|max:255|unique:products',
+            'subname.*' => 'required|string|max:255',
+            'subprice.*' => 'required|numeric',
+            'subquantity.*' => 'required|numeric'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        DiscountsRef::create($request->all());
+        $product = Product::create([
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'actual_quantity' => $request['actual_quantity'],
+            'expected_quantity' => $request['expected_quantity'],
+            'quantity_type_id' => $request['quantity_type'],
+            'category_id' => $request['category'],
+            'product_code' => $request['product_code']
+        ]);
 
-        return redirect()->back()->with('notification', 'The discount has been created.');
+        $submenu = sizeof($request['subname']) - 1;
+
+        while($submenu >= 0) {
+            $product->productDetails()->create([
+                'name' => $request['subname.'.$submenu],
+                'price' => $request['subprice.'.$submenu],
+                'quantity' => $request['subquantity.'.$submenu]
+            ]);
+            $submenu--;
+        }
+
+        return redirect()->back()->with('notification', 'The product has been created.');
     }
 
     public function edit($id) {
-    	$discount = DiscountsRef::find($id);
+        $product = new Product;
+    	$product = $product->getProduct($id);
+        $productSubmenus = ProductDetail::where('product_id', $id)->get();
+        $categories = CategoriesRef::all();
+        $quantityTypes = QuantityTypesRef::all();
+
     	return view('products.details.edit')->with([
-    		'discount' => $discount
+    		'product' => $product,
+            'productSubmenus' => $productSubmenus,
+            'categories' => $categories,
+            'quantityTypes' => $quantityTypes
     	]);
     }
 

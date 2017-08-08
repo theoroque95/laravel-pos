@@ -32,7 +32,7 @@
                 <tr>
                   <td>{{ $product->name }}</td>
                   <td>{{ $product->description }}</td>
-                  <td>{{ $product->category_name }}</td>
+                  <td>{{ ucfirst($product->category_name) }}</td>
                   <td>
                     <div class="progress progress-md">
                       @if ($product->available_amount <= 5)

@@ -30,7 +30,7 @@
       <li><a href="/discounts"><i class="fa fa-percent"></i> <span>Discounts</span></a></li>
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-pie-chart"></i> <span>Reports</span>
+          <i class="fa fa-line-chart"></i> <span>Reports</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>

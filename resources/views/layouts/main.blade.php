@@ -31,5 +31,6 @@
 <script src="{{ URL::asset('js/app.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   @include('partials.scripts')
+  @yield('scripts')
 </body>
 </html>
