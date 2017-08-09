@@ -71,13 +71,13 @@
 					    <div class="form-group menu-subcategory">
 					    	<div class="row" id="submenu-0">
 						    	<div class="col-xs-3">
-						    		<input type="text" class="form-control" placeholder="Subcategory Name" id="subname-0" name="subname[0]" required="true">
+						    		<input type="text" class="form-control" placeholder="Subcategory Name" id="subname-0" name="subnames[0]" required="true">
 						    	</div>
 						    	<div class="col-xs-3">
-						    		<input type="number" class="form-control" placeholder="Price" id="subprice-0" name="subprice[0]" required="true">
+						    		<input type="number" class="form-control" placeholder="Price" id="subprice-0" name="subprices[0]" required="true">
 						    	</div>
 						    	<div class="col-xs-3">
-						    		<input type="number" class="form-control" placeholder="Quantity" id="subquantity-0" name="subquantity[0]" required="true">
+						    		<input type="number" class="form-control" placeholder="Quantity" id="subquantity-0" name="subquantities[0]" required="true">
 						    	</div>
 						    </div>
 					    </div>
@@ -100,7 +100,7 @@
 	var newId = 0;
 	function addMenuSubcategory() {
 		newId = newId + 1;
-		$(".menu-subcategory").append('<div class="row" id="submenu-'+newId+'"><br><div class="col-xs-3"><input type="text" class="form-control" placeholder="Subcategory Name" id="subname-'+newId+'" name="subname['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Price" id="subprice-'+newId+'" name="subprice['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Quantity" id="subquantity-'+newId+'" name="subquantity['+newId+']" required="true"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></div>');
+		$(".menu-subcategory").append('<div class="row" id="submenu-'+newId+'"><br><div class="col-xs-3"><input type="text" class="form-control" placeholder="Subcategory Name" id="subname-'+newId+'" name="subnames['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Price" id="subprice-'+newId+'" name="subprices['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Quantity" id="subquantity-'+newId+'" name="subquantities['+newId+']" required="true"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></div>');
 	}
 
 	function removeMenuSubcategory(id) {

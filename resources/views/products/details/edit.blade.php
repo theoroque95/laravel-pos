@@ -69,7 +69,11 @@
 					    	</button>
 					    </div>
 					    <div class="form-group menu-subcategory">
-
+					    	<div class="row">
+						    	<div class="col-xs-3">Subcategory</div>
+						    	<div class="col-xs-3">Price (&#8369;)</div>
+						    	<div class="col-xs-3">Size ({{ ucfirst($quantityType->name) }}) </div>
+						    </div>
 					    </div>
 					    <div class="form-group">
 							<button type="submit" class="btn btn-primary pull-right">Submit</button>
@@ -93,16 +97,29 @@
 		var newId = 0;
 		function addMenuSubcategory() {
 			newId = newId + 1;
-			$(".menu-subcategory").append('<div class="row" id="submenu-'+newId+'"><br><div class="col-xs-3"><input type="text" class="form-control" placeholder="Subcategory Name" id="subname-'+newId+'" name="subname['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Price" id="subprice-'+newId+'" name="subprice['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Quantity" id="subquantity-'+newId+'" name="subquantity['+newId+']" required="true"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></div>');
+			$(".menu-subcategory").append('<div class="row submenu" id="submenu-'+newId+'"><br><div class="col-xs-3"><input type="text" class="form-control" placeholder="Subcategory Name" id="subname-'+newId+'" name="subnames['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Price" id="subprice-'+newId+'" name="subprices['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Quantity" id="subquantity-'+newId+'" name="subquantities['+newId+']" required="true"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></div>');
 		}
 
+		var deleteKey = 0;
 		function removeMenuSubcategory(id) {
-			$("#submenu-"+id).remove();
+			if ($('.menu-subcategory > div.submenu').length > 1) {
+				var deleteId = $("#submenuId-"+id).val();
+
+				if (typeof deleteId != 'undefined') {
+					console.log('deleteId'+deleteId);
+					$(".menu-subcategory").append('<input type="hidden" id="delete-'+deleteKey+'" name="deletes['+deleteKey+']" value="'+deleteId+'">');
+					deleteKey++;
+				}
+				$("#submenu-"+id).remove();
+			}
+			else {
+				alert('Cannot delete last menu category.');
+			}
 		}
 	</script>
 	@foreach($productSubmenus as $productSubmenu)
 		<script>
-		$(".menu-subcategory").append('<div class="row" id="submenu-'+newId+'"><br><div class="col-xs-3"><input type="text" class="form-control" placeholder="Subcategory Name" id="subname-'+newId+'" name="subname['+newId+']" required="true" value="{{ $productSubmenu->name }}"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Price" id="subprice-'+newId+'" name="subprice['+newId+']" required="true" value="{{ $productSubmenu->price }}"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Quantity" id="subquantity-'+newId+'" name="subquantity['+newId+']" required="true" value="{{ $productSubmenu->quantity }}"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></div>');
+		$(".menu-subcategory").append('<div class="row submenu" id="submenu-'+newId+'"><br><div class="col-xs-3"><input type="hidden" id="submenuId-'+newId+'" name="submenuId['+newId+']" value="{{ $productSubmenu->id }}"><input type="text" class="form-control" placeholder="Subcategory Name" id="subname-'+newId+'" name="subnames['+newId+']" required="true" value="{{ $productSubmenu->name }}"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Price" id="subprice-'+newId+'" name="subprices['+newId+']" required="true" value="{{ $productSubmenu->price }}"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="Quantity" id="subquantity-'+newId+'" name="subquantities['+newId+']" required="true" value="{{ $productSubmenu->quantity }}"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></div>');
 			newId = newId + 1;
 		</script>
 	@endforeach

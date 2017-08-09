@@ -37,9 +37,9 @@ class ProductDetailsController extends Controller
             'quantity_type' => 'required|numeric',
             'category' => 'required|numeric',
             'product_code' => 'required|string|max:255|unique:products',
-            'subname.*' => 'required|string|max:255',
-            'subprice.*' => 'required|numeric',
-            'subquantity.*' => 'required|numeric'
+            'subnames.*' => 'required|string|max:255',
+            'subprices.*' => 'required|numeric',
+            'subquantities.*' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -60,9 +60,9 @@ class ProductDetailsController extends Controller
 
         while($submenu >= 0) {
             $product->productDetails()->create([
-                'name' => $request['subname.'.$submenu],
-                'price' => $request['subprice.'.$submenu],
-                'quantity' => $request['subquantity.'.$submenu]
+                'name' => $request['subnames.'.$submenu],
+                'price' => $request['subprices.'.$submenu],
+                'quantity' => $request['subquantities.'.$submenu]
             ]);
             $submenu--;
         }
@@ -89,19 +89,52 @@ class ProductDetailsController extends Controller
     	$validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'percentage' => 'required|numeric'
+            'actual_quantity' => 'required|numeric',
+            'expected_quantity' => 'required|numeric',
+            'quantity_type' => 'required|numeric',
+            'category' => 'required|numeric',
+            'product_code' => 'required|string|max:255',
+            'subnames.*' => 'required|string|max:255',
+            'subprices.*' => 'required|numeric',
+            'subquantities.*' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $discount = DiscountsRef::find($id);
-        $discount->name = $request['name'];
-        $discount->description = $request['description'];
-        $discount->percentage = $request['percentage'];
-        $discount->save();
+        // Update Product Table
+        $product = Product::find($id);
+        $product->name = $request['name'];
+        $product->description = $request['description'];
+        $product->actual_quantity = $request['actual_quantity'];
+        $product->expected_quantity = $request['expected_quantity'];
+        $product->quantity_type_id = $request['quantity_type'];
+        $product->category_id = $request['category'];
+        $product->product_code = $request['product_code'];
+        $product->save();
 
-        return redirect()->back()->with('notification', 'The discount has been updated.');
+        // Delete
+        if (sizeof($request['deletes']) > 0) {
+            $productDetail = ProductDetail::destroy($request['deletes']);
+        }
+
+        // Update or Create Product Details
+        $keys = array_keys($request['subnames']);
+        foreach ($keys as $key) {
+            $productDetail = ProductDetail::updateOrCreate(
+                [
+                    'name' => $request['subnames.'.$key],
+                    'quantity' => $request['subquantities.'.$key]
+                ],
+                [
+                    'name' => $request['subnames.'.$key],
+                    'quantity' => $request['subquantities.'.$key],
+                    'price' => $request['subprices.'.$key]
+                ]
+            );
+        }
+
+        return redirect()->back()->with('notification', 'The product has been updated.');
     }
 }
