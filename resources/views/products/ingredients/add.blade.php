@@ -19,7 +19,7 @@
 			      <h3 class="box-title"><i class="fa fa-plus"></i> Add New Ingredient</h3>
 			    </div>
 
-			    <form role="form" method="POST" action="/categories/add">
+			    <form role="form" method="POST" action="/ingredients/add">
 			    {{ csrf_field() }}
 			      <div class="box-body">
 			      	<div class="form-group">
@@ -31,12 +31,12 @@
 			          <input type="text" class="form-control" id="description" placeholder="Enter Description" value="{{ old('description') }}" name="description">
 			        </div>
 			        <div class="form-group">
-			          <label for="actual_quantity">Description</label>
-			          <input type="number" class="form-control" id="actual_quantity" placeholder="Enter Description" value="{{ old('actual_quantity') }}" name="actual_quantity">
+			          <label for="expected_quantity">Expected Quantity</label>
+			          <input type="number" class="form-control" id="expected_quantity" placeholder="Enter Description" value="{{ old('expected_quantity') }}" name="expected_quantity">
 			        </div>
 			        <div class="form-group">
-			          <label for="expected_quantity">Description</label>
-			          <input type="number" class="form-control" id="expected_quantity" placeholder="Enter Description" value="{{ old('expected_quantity') }}" name="expected_quantity">
+			          <label for="actual_quantity">Actual Quantity</label>
+			          <input type="number" class="form-control" id="actual_quantity" placeholder="Enter Description" value="{{ old('actual_quantity') }}" name="actual_quantity">
 			        </div>
 			        <div class="form-group">
 				   		<label>Measurement Unit</label>
@@ -48,9 +48,6 @@
 				        </select>
 				    </div>
 			      </div>
-
-
-
 			      <div class="box-footer">
 			        <button type="submit" class="btn btn-primary pull-right">Submit</button>
 			      </div>

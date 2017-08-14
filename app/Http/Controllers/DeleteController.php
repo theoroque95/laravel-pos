@@ -8,6 +8,7 @@ use App\User;
 use App\CategoriesRef;
 use App\DiscountsRef;
 use App\QuantityTypesRef;
+use App\Ingredient;
 
 class DeleteController extends Controller
 {
@@ -48,6 +49,11 @@ class DeleteController extends Controller
                 // Delete quantity type
                 $quantity = QuantityTypesRef::find($id);
                 $quantity->delete();
+                break;
+            case 'ingredient':
+                // Delete ingredient
+                $ingredient = Ingredient::find($id);
+                $ingredient->delete();
                 break;
     		default:
     			# code...
