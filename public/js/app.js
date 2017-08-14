@@ -30888,7 +30888,7 @@ __webpack_require__(179);
 $.widget.bridge('uibutton', $.ui.button);
 
 /*
- * CUSTOM FUNCTIONS
+ * CUSTOM FUNCTIONS AND SCRIPTS
  */
 
 /***/ }),

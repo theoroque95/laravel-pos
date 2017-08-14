@@ -17,11 +17,10 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->float('actual_quantity', 8, 2);
-            $table->float('expected_quantity', 8, 2);
-            $table->integer('quantity_type_id');
             $table->integer('category_id');
+            $table->integer('quantity_type_id');
             $table->string('product_code');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

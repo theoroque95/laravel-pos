@@ -18,6 +18,7 @@ class CreateSalesProductsTable extends Migration
             $table->bigInteger('sales_id');
             $table->integer('product_detail_id');
             $table->integer('quantity');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

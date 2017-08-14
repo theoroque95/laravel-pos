@@ -24,14 +24,14 @@ class CategoriesController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        CategoriesRef::create($request->all());
+        $category = CategoriesRef::create($request->all());
 
-        return redirect()->back()->with('notification', 'The category has been added.');
+        return redirect('/categories/'.$category->id)->with('notification', 'The category has been added.');
     }
 
     public function edit($id) {

@@ -11,18 +11,19 @@
 |
 */
 
-// Auth::routes();
+Auth::routes();
 
 // Route::group(['middleware' => 'guest'], function () {
-	// Route::get('/login', 'Auth/LoginController@showLoginForm');
-	// Route::post('/login', 'Auth/LoginController@login');
-	// Route::get('/register', 'Auth/RegisterController@showRegistrationForm');
-	// Route::post('/register', 'Auth/RegisterController@create');
+// 	Route::get('/login', 'Auth/LoginController@showLoginForm');
+// 	Route::post('/login', 'Auth/LoginController@login');
+// 	Route::get('/register', 'Auth/RegisterController@showRegistrationForm');
+// 	Route::post('/register', 'Auth/RegisterController@create');
 // });
 
 
 // Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', 'DashboardController@show');
+	Route::get('/cashier', 'CashierController@show');
 
 	// ADMIN
 	Route::group(['prefix' => 'staff', 'as' => 'staff::'], function () {
@@ -49,6 +50,14 @@
 	    Route::get('/{id}', 'ProductDetailsController@edit');
 	    Route::post('/{id}', 'ProductDetailsController@update');
 	});
+
+	Route::group(['prefix' => 'ingredients', 'as' => 'ingredients::'], function () {
+	    Route::get('/', 'IngredientsController@show');
+	    Route::get('/add', 'IngredientsController@add');
+	    Route::post('/add', 'IngredientsController@create');
+	    Route::get('/{id}', 'IngredientsController@edit');
+	    Route::post('/{id}', 'IngredientsController@update');
+	});
 // });
 
 Route::group(['prefix' => 'discounts', 'as' => 'discounts::'], function () {
@@ -58,3 +67,13 @@ Route::group(['prefix' => 'discounts', 'as' => 'discounts::'], function () {
     Route::get('/{id}', 'DiscountsController@edit');
     Route::post('/{id}', 'DiscountsController@update');
 });
+
+Route::group(['prefix' => 'quantitytypes', 'as' => 'quantitytypes::'], function () {
+    Route::get('/', 'QuantityTypeController@show');
+    Route::get('/add', 'QuantityTypeController@add');
+    Route::post('/add', 'QuantityTypeController@create');
+    Route::get('/{id}', 'QuantityTypeController@edit');
+    Route::post('/{id}', 'QuantityTypeController@update');
+});
+
+Route::post('/delete', 'DeleteController@delete');

@@ -39,5 +39,5 @@ require('./dashboard');
 $.widget.bridge('uibutton', $.ui.button);
 
 /*
- * CUSTOM FUNCTIONS
+ * CUSTOM FUNCTIONS AND SCRIPTS
  */

@@ -3,9 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CategoriesRef extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
     protected $table = 'categories_ref';
 
     /**
@@ -21,6 +31,6 @@ class CategoriesRef extends Model
      * Get the products associated with a category.
      */
     public function products() {
-        return $this->hasMany('App\Products', 'category_id', 'id');
+        return $this->hasMany('App\Product', 'category_id', 'id');
     }
 }

@@ -32,7 +32,7 @@ class StaffController extends Controller
             'address' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -49,7 +49,7 @@ class StaffController extends Controller
             'password' => Hash::make($request['password'])
         ]);
 
-        return redirect()->back()->with('notification', 'The user has been added.');
+        return redirect('/staff/'.$user->id)->with('notification', 'The user has been added.');
     }
 
     public function edit($id) {
@@ -80,7 +80,7 @@ class StaffController extends Controller
         $user->last_name = $request['last_name'];
         $user->email = $request['email'];
         $user->phone = $request['phone'];
-        $user->birthdate = Carbon::createFromFormat('d/m/Y', $request['birthdate'])->format('d/m/Y');
+        $user->birthdate = Carbon::createFromFormat('m/d/Y', $request['birthdate']);
         $user->address = $request['address'];
         $user->is_admin = $request['is_admin'] == null ? false : true;
         $user->save();

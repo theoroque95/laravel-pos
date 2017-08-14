@@ -23,16 +23,16 @@ class DiscountsController extends Controller
     	$validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'percentage' => 'required|numeric'
+            'percentage' => 'required|numeric|min:1|max:100'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        DiscountsRef::create($request->all());
+        $discount = DiscountsRef::create($request->all());
 
-        return redirect()->back()->with('notification', 'The discount has been created.');
+        return redirect('/discounts/'.$discount->id)->with('notification', 'The discount has been created.');
     }
 
     public function edit($id) {

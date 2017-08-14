@@ -9,4 +9,25 @@
 $('#datepicker').datepicker({
   autoclose: true
 })
+
+$("button[data-toggle=modal]").on('click', function() {
+	$('input#modal-id').val($(this).data('id'));
+	$('input#modal-form').val($(this).data('form'));
+});
+
+function deleteItem() {
+	var id = $('#modal-id').val();
+	var form = $('#modal-form').val();
+
+	$("form#modal-delete").submit();
+}
+
+function formatDate(dateArg) {
+	var date = new Date(dateArg);
+	var day = ('0' + date.getDate()).slice(-2);
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var year = date.getFullYear();
+
+    return month + '/' + day + '/' + year;
+}
 </script>

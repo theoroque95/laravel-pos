@@ -21,6 +21,7 @@ class CreateSalesTable extends Migration
             $table->float('total', 8, 2);
             $table->float('tendered', 8, 2);
             $table->integer('discount_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

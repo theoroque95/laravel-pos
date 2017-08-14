@@ -18107,7 +18107,7 @@ a:focus {
 
 .content-header {
   position: relative;
-  padding: 15px 15px 0 15px;
+  padding: 15px 15px 15px 15px;
 }
 
 .content-header > h1 {
@@ -26360,5 +26360,27 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value=orange] {
   background: white;
   border: 0px;
   opacity: 0;
+}
+
+.no-padding-right {
+  padding-right: 0;
+}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.no-padding-top {
+  padding-top: 0;
+}
+
+.no-padding-bottom {
+  padding-bottom: 0;
+}
+
+#receipt {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100px;
 }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuantityTypesRefTable extends Migration
+class CreateIngredientProductDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateQuantityTypesRefTable extends Migration
      */
     public function up()
     {
-        Schema::create('quantity_types_ref', function (Blueprint $table) {
+        Schema::create('ingredient_product_detail', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->string('acronym');
-            $table->softDeletes();
+            $table->integer('ingredient_id');
+            $table->integer('product_detail_id');
+            $table->float('sale_quantity', 8, 2);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateQuantityTypesRefTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quantity_types_ref');
+        Schema::dropIfExists('ingredient_product_detail');
     }
 }

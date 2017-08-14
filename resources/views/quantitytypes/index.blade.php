@@ -4,7 +4,7 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header pull-right">
-    <a href="/categories/add"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Add New Category</button></a>
+    <a href="/quantitytypes/add"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Add New Quantity Type</button></a>
   </section>
   <section class="content">
     @include('partials.notification')
@@ -12,7 +12,7 @@
       <div class="col-xs-12">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Product Categories</h3>
+            <h3 class="box-title">Quantity Types</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
@@ -21,18 +21,20 @@
               <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Acronym</th>
                 <th>Action</th>
               </tr>
               </thead>
               <tbody>
-              @foreach($categories as $category)
+              @foreach($quantityTypes as $quantityType)
                 <tr>
-                  <td>{{ $category->name }}</td>
-                  <td>{{ $category->description }}</td>
+                  <td>{{ $quantityType->name }}</td>
+                  <td>{{ $quantityType->description }}</td>
+                  <td>{{ $quantityType->acronym }}</td>
                   <td>
                     <div class="btn-group">
-                      <a href="/categories/{{ $category->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $category->id }}" data-form="category"><i class="fa fa-trash"></i></button>
+                      <a href="/quantitytypes/{{ $quantityType->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $quantityType->id }}" data-form="quantity"><i class="fa fa-trash"></i></button>
                     </div>
                   </td>
                 </tr>

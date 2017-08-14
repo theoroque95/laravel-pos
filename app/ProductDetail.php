@@ -3,9 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductDetail extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
     protected $table = 'product_details';
 
     /**
@@ -14,7 +24,7 @@ class ProductDetail extends Model
      * @var array
      */
     protected $fillable = [
-        'product_id', 'name', 'quantity', 'price',
+        'product_id', 'name', 'quantity', 'quantity_type_id', 'price',
     ];
 
     /**
@@ -22,5 +32,10 @@ class ProductDetail extends Model
      */
     public function product() {
         return $this->belongsTo('App\Product', 'id', 'product_id');
+    }
+
+    public function ingredients() {
+        return $this->belongsToMany('App\Ingredient', 'ingredient_product_detail', 'product_detail_id', 'ingredient_id')
+                    ->withTimestamps();
     }
 }

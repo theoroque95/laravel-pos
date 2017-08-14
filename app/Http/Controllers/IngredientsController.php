@@ -3,31 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
-use App\ProductDetail;
-use App\CategoriesRef;
 use App\QuantityTypesRef;
 use App\Ingredient;
-use Validator;
 
-class ProductDetailsController extends Controller
+class IngredientsController extends Controller
 {
     public function show() {
-    	$products = new Product;
-    	$products = $products->getAllProducts();
-    	return view('products.details.index')->with([
-    		'products' => $products
-    	]);
+        $ingredients = new Ingredient;
+        $ingredients = $ingredients->getAllIngredients();
+        return view('products.ingredients.index')->with([
+            'ingredients' => $ingredients
+        ]);
     }
 
     public function add() {
-    	$categories = CategoriesRef::all();
     	$quantityTypes = QuantityTypesRef::all();
-        $ingredients = Ingredient::all();
-    	return view('products.details.add')->with([
-    		'categories' => $categories,
-    		'quantityTypes' => $quantityTypes,
-            'ingredients' => $ingredients
+    	return view('products.ingredients.add')->with([
+    		'quantityTypes' => $quantityTypes
     	]);
     }
 

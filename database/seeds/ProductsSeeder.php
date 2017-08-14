@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Product;
+use App\Ingredient;
 
 class ProductsSeeder extends Seeder
 {
@@ -12,102 +13,125 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
+        $ingredient1 = Ingredient::find(1);
+        $ingredient2 = Ingredient::find(2);
+
     	// PRODUCT 1
     	$product1 = Product::create([
     		'name' => 'White Coffee Mocha',
     		'description' => 'White Coffee Mocha description',
-    		'actual_quantity' => 750,
-    		'expected_quantity' => 750,
     		'quantity_type_id' => 2,
     		'category_id' => 1,
     		'product_code' => 'WHCOFMCH'
     	]);
 
-    	$product1->productDetails()->create([
+    	$productDetail1 = $product1->productDetails()->create([
     		'name' => 'Hot',
     		'quantity' => 16,
     		'price' => 130
     	]);
+        $productDetail1->ingredients()->save($ingredient1, [
+            'sale_quantity' => 7
+        ]);
 
-    	$product1->productDetails()->create([
+    	$productDetail1 = $product1->productDetails()->create([
     		'name' => 'Cold',
     		'quantity' => 12,
     		'price' => 120
     	]);
+        $productDetail1->ingredients()->save($ingredient1, [
+            'sale_quantity' => 7
+        ]);
 
-    	$product1->productDetails()->create([
+    	$productDetail1 = $product1->productDetails()->create([
     		'name' => 'Cold',
     		'quantity' => 16,
     		'price' => 140
     	]);
+        $productDetail1->ingredients()->save($ingredient1, [
+            'sale_quantity' => 7
+        ]);
 
     	// PRODUCT 2
     	$product2 = Product::create([
     		'name' => 'Cafe Americano',
     		'description' => 'American\'s super strong coffee',
-    		'actual_quantity' => 100,
-    		'expected_quantity' => 700,
     		'quantity_type_id' => 2,
     		'category_id' => 1,
     		'product_code' => 'CAFAM'
     	]);
 
-    	$product2->productDetails()->create([
+    	$productDetail2 = $product2->productDetails()->create([
     		'name' => 'Hot',
     		'quantity' => 16,
     		'price' => 100
     	]);
+        $productDetail2->ingredients()->save($ingredient1, [
+            'sale_quantity' => 10
+        ]);
 
-    	$product2->productDetails()->create([
+    	$productDetail2 = $product2->productDetails()->create([
     		'name' => 'Cold',
     		'quantity' => 12,
     		'price' => 110
     	]);
+        $productDetail2->ingredients()->save($ingredient2, [
+            'sale_quantity' => 10
+        ]);
 
-    	$product2->productDetails()->create([
+    	$productDetail2 = $product2->productDetails()->create([
     		'name' => 'Cold',
     		'quantity' => 16,
     		'price' => 120
     	]);
+        $productDetail2->ingredients()->save($ingredient1, [
+            'sale_quantity' => 10
+        ]);
 
     	// PRODUCT 3
     	$product3 = Product::create([
     		'name' => 'Java Chip Frappe',
     		'description' => 'Frappe with Java chips',
-    		'actual_quantity' => 30,
-    		'expected_quantity' => 850,
     		'quantity_type_id' => 2,
     		'category_id' => 2,
     		'product_code' => 'JVCHP'
     	]);
 
-    	$product3->productDetails()->create([
+    	$productDetail3 = $product3->productDetails()->create([
     		'name' => 'Cold',
     		'quantity' => 12,
     		'price' => 110
     	]);
+        $productDetail3->ingredients()->save($ingredient1, [
+            'sale_quantity' => 15
+        ]);
 
-    	$product3->productDetails()->create([
+    	$productDetail3 = $product3->productDetails()->create([
     		'name' => 'Cold',
     		'quantity' => 16,
     		'price' => 140
     	]);
+        $productDetail3->ingredients()->save($ingredient2, [
+            'sale_quantity' => 15
+        ]);
 
     	// PRODUCT 4
     	$product4 = Product::create([
     		'name' => 'Blueberry Soda',
     		'description' => 'Water with shots of Italian Blueberry syrup',
-    		'actual_quantity' => 500,
-    		'expected_quantity' => 750,
     		'quantity_type_id' => 2,
     		'category_id' => 4,
     		'product_code' => 'BLBRRYSD'
     	]);
 
-    	$product3->productDetails()->create([
+    	$productDetail4 = $product4->productDetails()->create([
     		'name' => 'Cold',
     		'quantity' => 12,
     		'price' => 70
     	]);
+        $productDetail4->ingredients()->save($ingredient2, [
+            'sale_quantity' => 15
+        ]);
+
     }
 }

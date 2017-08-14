@@ -49,7 +49,7 @@
 						  <div class="input-group-addon">
 						    <i class="fa fa-calendar"></i>
 						  </div>
-						  <input type="text" class="form-control pull-right" name="birthdate" id="datepicker" value="{{ $user->birthdate }}">
+						  <input type="text" class="form-control pull-right" name="birthdate" id="datepicker">
 						</div>
 					</div>
 					<div class="form-group">
@@ -108,4 +108,10 @@
 		</div>
 	</section>
 </div>
+@endsection
+
+@section('scripts')
+	<script>
+		$("#datepicker").val(formatDate("{{ $user->birthdate }}"));
+	</script>
 @endsection

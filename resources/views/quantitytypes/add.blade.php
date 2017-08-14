@@ -4,7 +4,7 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
     <section class="content-header">
-		<h4><a href="/discounts"><i class="fa fa-caret-left"></i> Back</a></h4>
+		<h4><a href="/quantitytypes"><i class="fa fa-caret-left"></i> Back</a></h4>
     </section>
 
 	<!-- Main content -->
@@ -16,11 +16,11 @@
 			  <!-- general form elements -->
 			  <div class="box box-primary">
 			    <div class="box-header with-border">
-			      <h3 class="box-title"><i class="fa fa-plus"></i> Add New Discount</h3>
+			      <h3 class="box-title"><i class="fa fa-plus"></i> Add New Quantity Type</h3>
 			    </div>
 			    <!-- /.box-header -->
 			    <!-- form start -->
-			    <form role="form" method="POST" action="/discounts/add">
+			    <form role="form" method="POST" action="/quantitytypes/add">
 			    {{ csrf_field() }}
 			      <div class="box-body">
 			      	<div class="form-group">
@@ -32,8 +32,8 @@
 			          <input type="text" class="form-control" id="description" placeholder="Enter Description" value="{{ old('description') }}" name="description">
 			        </div>
 			        <div class="form-group">
-			          <label for="percentage">Percentage</label>
-			          <input type="number" class="form-control" id="percentage" placeholder="Enter Percentage" value="{{ old('percentage') }}" name="percentage">
+			          <label for="acronym">Acronym</label>
+			          <input type="text" class="form-control" id="acronym" placeholder="Enter Percentage" value="{{ old('acronym') }}" name="acronym">
 			        </div>
 			      </div>
 			      <!-- /.box-body -->

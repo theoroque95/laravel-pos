@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class CashierController extends Controller
 {
-    //
+    public function show() {
+		return view('pages.cashier');
+	}
 }
