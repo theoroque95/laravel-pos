@@ -55,8 +55,9 @@
                   <td>{{ $ingredient->quantity_type_name }} ({{ $ingredient->acronym }})</td>
                   <td>
                     <div class="btn-group">
+                      <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $ingredient->id }}" data-form="ingredient"><i class="fa fa-trash"></i></button></a>
                       <a href="/ingredients/{{ $ingredient->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $ingredient->id }}" data-form="ingredient"><i class="fa fa-trash"></i></button>
+                      <a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-replenish" data-id="{{ $ingredient->id }}" data-acronym="{{ ucfirst($ingredient->quantity_type_name) }}"><i class="fa fa-plus"></i> Replenish</button></a>
                     </div>
                   </td>
                 </tr>
@@ -72,4 +73,33 @@
   </section>
 </div>
 @include('partials.modalDelete')
+@include('partials.modalReplenish')
+@endsection
+
+@section('scripts')
+  <script>
+    function replenish() {
+      $.ajax({
+        url : '/replenish',
+        method: 'POST',
+        type: 'json',
+        data: {
+            quantity: $('#modal-quantity').val(),
+            id: $('#modal-id').val(),
+            _token: $('input[name=_token]').val()
+        },
+        success : function(response) {
+            location.reload();
+        },
+        error : function(error) {
+          var error_messsage = '';
+          $.each(error.responseJSON.error, function(key, value) {
+              error_messsage = error_messsage + ' ' + value;
+          });
+          $("#modal-error-message").text(error_messsage);
+          $("#modal-error").css({'display':'block'});
+        }
+    });
+    }
+  </script>
 @endsection

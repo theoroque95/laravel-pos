@@ -38,5 +38,6 @@ class IngredientsSeeder extends Seeder
     		'expected_quantity' => 7,
     		'quantity_type_id' => 4
     	]);
+        
     }
 }

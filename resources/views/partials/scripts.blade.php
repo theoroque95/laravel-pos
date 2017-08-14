@@ -10,9 +10,14 @@ $('#datepicker').datepicker({
   autoclose: true
 })
 
-$("button[data-toggle=modal]").on('click', function() {
+$("button[data-target='#modal-delete']").on('click', function() {
 	$('input#modal-id').val($(this).data('id'));
 	$('input#modal-form').val($(this).data('form'));
+});
+
+$("button[data-target='#modal-replenish']").on('click', function() {
+	$('input#modal-id').val($(this).data('id'));
+	$('span#modal-acronym').text($(this).data('acronym'));
 });
 
 function deleteItem() {

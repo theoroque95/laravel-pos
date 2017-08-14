@@ -33,7 +33,7 @@
 			        </div>
 			        <div class="form-group">
 			          <label for="acronym">Acronym</label>
-			          <input type="text" class="form-control" id="acronym" placeholder="Enter Percentage" value="{{ old('acronym') }}" name="acronym">
+			          <input type="text" class="form-control" id="acronym" placeholder="Enter Acronym" value="{{ old('acronym') }}" name="acronym">
 			        </div>
 			      </div>
 			      <!-- /.box-body -->

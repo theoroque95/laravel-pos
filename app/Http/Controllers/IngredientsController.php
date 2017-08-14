@@ -98,4 +98,24 @@ class IngredientsController extends Controller
 
         return redirect()->back()->with('notification', 'The ingredient has been updated.');
     }
+
+    public function replenish(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'quantity' => 'required|numeric|min:1'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()->all()], 422);
+        }
+
+        $ingredient = Ingredient::find($request['id']);
+        $totalQuantity = $ingredient->actual_quantity + $request['quantity'];
+        if ($ingredient->expected_quantity < $totalQuantity) {
+            $ingredient->expected_quantity = $totalQuantity;
+        }
+        $ingredient->actual_quantity = $totalQuantity;
+        $ingredient->save();
+
+        return response()->json(['message' => 'Success!']);
+    }
 }

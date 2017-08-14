@@ -77,3 +77,4 @@ Route::group(['prefix' => 'quantitytypes', 'as' => 'quantitytypes::'], function 
 });
 
 Route::post('/delete', 'DeleteController@delete');
+Route::post('/replenish', 'IngredientsController@replenish');
