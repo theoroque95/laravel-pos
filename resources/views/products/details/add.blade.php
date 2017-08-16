@@ -106,26 +106,27 @@
 							    	<div class="col-xs-2 no-padding-right">Actual Quantity</div>
 							    	<div class="col-xs-2 no-padding-right">Expected Quantity</div>
 							    	<div class="col-xs-2 no-padding-right">Measurement Unit</div>
-							    	<div class="col-xs-2 no-padding-right">Per Sale</div>
+							    	<div class="col-xs-2 no-padding-right">Deduct Per Sale</div>
 							    </div>
 							    <div class="row ingredient" id="ingredient-0">
 								    <br>
 								    <div class="col-xs-2 no-padding-right">
 								    	<input type="hidden" id="submenuId-0" name="ingId[0]">
-							    	<input type="text" class="form-control" placeholder="Coffee Bean" id="ingName-0" name="ingNames[0]" required="true"></div>
-							    	<div class="col-xs-2 no-padding-right">
-								    	<input type="number" class="form-control" placeholder="100" id="ingActual-0" name="ingActuals[0]" required="true">
+								    	<input type="text" class="form-control" placeholder="Coffee Bean" id="ingName-0" name="ingNames[0]" required="true">
 								    </div>
 								    <div class="col-xs-2 no-padding-right">
-								    	<input type="number" class="form-control" placeholder="12" id="ingExpect-0" name="ingExpects[0]" required="true">
-								    </div>
-								    <div class="col-xs-2 no-padding-right">
-								        <select class="form-control select2" style="width: 100%;" name="ingredient_quantity_type">
+								        <select class="form-control select2" style="width: 100%;" name="ingQuantityTypes[0]">
 								          <option selected="selected">Select Measurement Unit</option>
 								          @foreach ($quantityTypes as $quantityType)
 								              <option value="{{ $quantityType->id }}">{{ ucfirst($quantityType->name) }} ({{ $quantityType->acronym }})</option>
 								          @endforeach
 								        </select>
+								    </div>
+								    <div class="col-xs-2 no-padding-right">
+								    	<input type="number" class="form-control" placeholder="12" id="ingExpect-0" name="ingExpects[0]" required="true">
+								    </div>
+								    <div class="col-xs-2 no-padding-right">
+								    	<input type="number" class="form-control" placeholder="100" id="ingActual-0" name="ingActuals[0]" required="true">
 								    </div>
 								    <div class="col-xs-2 no-padding-right">
 								    	<input type="number" class="form-control" placeholder="100" id="ingPerSale-0" name="ingPerSales[0]" required="true">
@@ -158,8 +159,8 @@
 
 	var newIngId = 0;
 	function addIngredients() {
-		newId = newId + 1;
-		$(".product-ingredient").append('<div class="row ingredient" id="ingredient-'+newIngId+'"><br><div class="col-xs-2 no-padding-right"><input type="hidden" id="submenuId-'+newIngId+'" name="ingId['+newIngId+']"><input type="text" class="form-control" placeholder="Coffee Bean" id="ingName-'+newIngId+'" name="ingNames['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="100" id="ingActual-'+newIngId+'" name="ingActuals['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="12" id="ingExpect-'+newIngId+'" name="ingExpects['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><select class="form-control select2" style="width: 100%;" name="ingredient_quantity_type"><option selected="selected">Select Measurement Unit</option>@foreach ($quantityTypes as $quantityType)<option value="{{ $quantityType->id }}">{{ ucfirst($quantityType->name) }} ({{ $quantityType->acronym }})</option>@endforeach</select></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="100" id="ingPerSale-'+newIngId+'" name="ingPerSales['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><button class="btn btn-danger btn-sm" type="button" onclick="removeIngredient('+newIngId+')"><i class="fa fa-minus"></i></button></div></div>');
+		newIngId = newIngId + 1;
+		$(".product-ingredient").append('<div class="row ingredient" id="ingredient-'+newIngId+'"><br><div class="col-xs-2 no-padding-right"><input type="hidden" id="submenuId-'+newIngId+'" name="ingId['+newIngId+']"><input type="text" class="form-control" placeholder="Coffee Bean" id="ingName-'+newIngId+'" name="ingNames['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><select class="form-control select2" style="width: 100%;" name="ingQuantityTypes['+newIngId+']"><option selected="selected">Select Measurement Unit</option>@foreach ($quantityTypes as $quantityType)<option value="{{ $quantityType->id }}">{{ ucfirst($quantityType->name) }} ({{ $quantityType->acronym }})</option>@endforeach</select></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="12" id="ingExpect-'+newIngId+'" name="ingExpects['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="100" id="ingActual-'+newIngId+'" name="ingActuals['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="100" id="ingPerSale-'+newIngId+'" name="ingPerSales['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><button class="btn btn-danger btn-sm" type="button" onclick="removeIngredient('+newIngId+')"><i class="fa fa-minus"></i></button></div></div>');
 	}
 
 	var deleteKey = 0;
@@ -180,7 +181,7 @@
 	}
 
 	var deleteIngKey = 0;
-	function removeMenuSubcategory(id) {
+	function removeIngredient(id) {
 		if ($('.product-ingredient > div.ingredient').length > 1) {
 			var deleteId = $("#ingId-"+id).val();
 

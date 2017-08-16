@@ -32,6 +32,7 @@ class ProductDetailsController extends Controller
     }
 
     public function create(Request $request) {
+        dd($request->all());
     	$validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
@@ -42,7 +43,12 @@ class ProductDetailsController extends Controller
             'product_code' => 'required|string|max:255',
             'subnames.*' => 'required|string|max:255',
             'subprices.*' => 'required|numeric|digits_between:1,6',
-            'subquantities.*' => 'required|numeric'
+            'subquantities.*' => 'required|numeric',
+            'ingNames.*' => 'required|string|max:255',
+            'ingActuals.*' => 'required|numeric|min:1',
+            'ingExpects.*' => 'required|numeric|min:1',
+            'ingQuantityTypes.*' => 'required|numeric',
+            'ingPerSales.*' => 'required|numeric|min:1'
         ]);
 
         $attributeNames = array(
@@ -52,7 +58,12 @@ class ProductDetailsController extends Controller
            'quantity_type' => 'quantity type',
            'product_code' => 'product code',
            'actual_quantity' => 'actual quantity',
-           'expected_quantity' => 'expected quantity'
+           'expected_quantity' => 'expected quantity',
+           'ingNames' => 'ingredient name',
+            'ingActuals' => 'ingredient actual quantity',
+            'ingExpects' => 'ingredient expected quantity',
+            'ingQuantityTypes' => 'ingredient quantity type',
+            'ingPerSales' => 'ingredient deduction per sale'
         );
 
         $validator->setAttributeNames($attributeNames);
@@ -71,9 +82,19 @@ class ProductDetailsController extends Controller
             'product_code' => $request['product_code']
         ]);
 
-        $keys = array_keys($request['submenuId']);
+        $submenuKeys = array_keys($request['submenuId']);
 
-        foreach($keys as $key) {
+        foreach($submenuKeys as $key) {
+            $product->productDetails()->create([
+                'name' => $request['subnames.'.$key],
+                'price' => $request['subprices.'.$key],
+                'quantity' => $request['subquantities.'.$key]
+            ]);
+        }
+
+        $ingKeys = array_keys($request['ingId']);
+
+        foreach($ingKeys as $key) {
             $product->productDetails()->create([
                 'name' => $request['subnames.'.$key],
                 'price' => $request['subprices.'.$key],
