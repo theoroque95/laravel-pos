@@ -15,7 +15,7 @@
 			<!-- left column -->
 			<form role="form" method="POST" action="/details/add">
 			    {{ csrf_field() }}
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="box box-primary">
 						<div class="box-header with-border">
 						  <h3 class="box-title"><i class="fa fa-plus"></i> Add New Product</h3>
@@ -54,85 +54,49 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="box box-primary" style="min-height: 430px">
 					    <div class="box-header with-border">
-							<h4 class="box-title">Menu Subcategories</h4>
+							<h4 class="box-title">Menu Subcategories and Ingredients</h4>
 					    </div>
 					    <div class="box-body">
 						    <div class="form-group">
-						    	<button class="btn btn-success btn-sm" type="button" onclick="addMenuSubcategory()"><i class="fa fa-plus"></i> Add Another Menu Subcategory
+						    	<button class="btn btn-success btn-sm" type="button" onclick="addMenuSubcategory()"><i class="fa fa-plus"></i> Add Another Menu Subcategory and Ingredient
 						    	</button>
 						    </div>
 						    <div class="form-group menu-subcategory">
 						    	<div class="row">
-							    	<div class="col-xs-3 no-padding-right">Subcategory</div>
-							    	<div class="col-xs-3 no-padding-right">Price (&#8369;)</div>
-							    	<div class="col-xs-3 no-padding-right">Size ({{ ucfirst($quantityType->name) }}) </div>
+							    	<div class="col-sm-2">Subcategory</div>
+							    	<div class="col-sm-2">Price (&#8369;)</div>
+							    	<div class="col-xs-2">Menu Size ({{ ucfirst($quantityType->name) }}) </div>
+							    	<div class="col-sm-2">Ingredient</div>
+							    	<div class="col-sm-2">Deduct Per Sale</div>
 							    </div>
 							    <div class="row submenu" id="submenu-0">
 								    <br>
-								    <div class="col-xs-3 no-padding-right">
+								    <div class="col-sm-2">
 								    	<input type="hidden" id="submenuId-0" name="submenuId[0]">
 							    	<input type="text" class="form-control" placeholder="Cold" id="subname-0" name="subnames[0]" required="true"></div>
-							    	<div class="col-xs-3 no-padding-right">
+							    	<div class="col-sm-2">
 								    	<input type="number" class="form-control" placeholder="100" id="subprice-0" name="subprices[0]" required="true">
 								    </div>
-								    <div class="col-xs-3 no-padding-right">
+								    <div class="col-sm-2">
 								    	<input type="number" class="form-control" placeholder="12" id="subquantity-0" name="subquantities[0]" required="true">
 								    </div>
-								    <div class="col-xs-2 no-padding-right">
-								    	<button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory(0)">
-								    	<i class="fa fa-minus"></i></button>
-								    </div>
-							    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-12">
-					<div class="box box-primary">
-					    <div class="box-header with-border">
-							<h4 class="box-title">Product Ingredients</h4>
-					    </div>
-					    <div class="box-body">
-						    <div class="form-group">
-						    	<button class="btn btn-success btn-sm" type="button" onclick="addIngredients()"><i class="fa fa-plus"></i> Add Another Ingredient
-						    	</button>
-						    </div>
-						    <div class="form-group product-ingredient">
-						    	<div class="row">
-							    	<div class="col-xs-2 no-padding-right">Ingredient</div>
-							    	<div class="col-xs-2 no-padding-right">Actual Quantity</div>
-							    	<div class="col-xs-2 no-padding-right">Expected Quantity</div>
-							    	<div class="col-xs-2 no-padding-right">Measurement Unit</div>
-							    	<div class="col-xs-2 no-padding-right">Deduct Per Sale</div>
-							    </div>
-							    <div class="row ingredient" id="ingredient-0">
-								    <br>
-								    <div class="col-xs-2 no-padding-right">
-								    	<input type="hidden" id="submenuId-0" name="ingId[0]">
-								    	<input type="text" class="form-control" placeholder="Coffee Bean" id="ingName-0" name="ingNames[0]" required="true">
-								    </div>
-								    <div class="col-xs-2 no-padding-right">
-								        <select class="form-control select2" style="width: 100%;" name="ingQuantityTypes[0]">
-								          <option selected="selected">Select Measurement Unit</option>
-								          @foreach ($quantityTypes as $quantityType)
-								              <option value="{{ $quantityType->id }}">{{ ucfirst($quantityType->name) }} ({{ $quantityType->acronym }})</option>
+								    <div class="col-sm-2">
+								        <select class="form-control select2" style="width: 100%;" name="ingNames[0]">
+								          <option selected="selected">- Select -</option>
+								          @foreach ($ingredients as $ingredient)
+								              <option value="{{ $ingredient->id }}">{{ ucfirst($ingredient->name) }} ({{ $ingredient->quantity_type_name }})</option>
 								          @endforeach
 								        </select>
 								    </div>
-								    <div class="col-xs-2 no-padding-right">
-								    	<input type="number" class="form-control" placeholder="12" id="ingExpect-0" name="ingExpects[0]" required="true">
-								    </div>
-								    <div class="col-xs-2 no-padding-right">
-								    	<input type="number" class="form-control" placeholder="100" id="ingActual-0" name="ingActuals[0]" required="true">
-								    </div>
-								    <div class="col-xs-2 no-padding-right">
+								    <div class="col-sm-2">
 								    	<input type="number" class="form-control" placeholder="100" id="ingPerSale-0" name="ingPerSales[0]" required="true">
 								    </div>
-								    <div class="col-xs-2 no-padding-right">
-								    	<button class="btn btn-danger btn-sm" type="button" onclick="removeIngredient(0)">
+
+								    <div class="col-sm-2">
+								    	<button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory(0)">
 								    	<i class="fa fa-minus"></i></button>
 								    </div>
 							    </div>
@@ -154,13 +118,13 @@
 	var newId = 0;
 	function addMenuSubcategory() {
 		newId = newId + 1;
-		$(".menu-subcategory").append('<div class="row submenu" id="submenu-'+newId+'"><br><div class="col-xs-3 no-padding-right"><input type="hidden" id="submenuId-'+newId+'" name="submenuId['+newId+']"><input type="text" class="form-control" placeholder="Cold" id="subname-'+newId+'" name="subnames['+newId+']" required="true"></div><div class="col-xs-3 no-padding-right"><input type="number" class="form-control" placeholder="100" id="subprice-'+newId+'" name="subprices['+newId+']" required="true"></div><div class="col-xs-3 no-padding-right"><input type="number" class="form-control" placeholder="12" id="subquantity-'+newId+'" name="subquantities['+newId+']" required="true"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></div>');
+		$(".menu-subcategory").append('<div class="row submenu" id="submenu-'+newId+'"><br><div class="col-xs-3"><input type="hidden" id="submenuId-'+newId+'" name="submenuId['+newId+']"><input type="text" class="form-control" placeholder="Cold" id="subname-'+newId+'" name="subnames['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="100" id="subprice-'+newId+'" name="subprices['+newId+']" required="true"></div><div class="col-xs-3"><input type="number" class="form-control" placeholder="12" id="subquantity-'+newId+'" name="subquantities['+newId+']" required="true"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></div>');
 	}
 
 	var newIngId = 0;
 	function addIngredients() {
 		newIngId = newIngId + 1;
-		$(".product-ingredient").append('<div class="row ingredient" id="ingredient-'+newIngId+'"><br><div class="col-xs-2 no-padding-right"><input type="hidden" id="submenuId-'+newIngId+'" name="ingId['+newIngId+']"><input type="text" class="form-control" placeholder="Coffee Bean" id="ingName-'+newIngId+'" name="ingNames['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><select class="form-control select2" style="width: 100%;" name="ingQuantityTypes['+newIngId+']"><option selected="selected">Select Measurement Unit</option>@foreach ($quantityTypes as $quantityType)<option value="{{ $quantityType->id }}">{{ ucfirst($quantityType->name) }} ({{ $quantityType->acronym }})</option>@endforeach</select></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="12" id="ingExpect-'+newIngId+'" name="ingExpects['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="100" id="ingActual-'+newIngId+'" name="ingActuals['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><input type="number" class="form-control" placeholder="100" id="ingPerSale-'+newIngId+'" name="ingPerSales['+newIngId+']" required="true"></div><div class="col-xs-2 no-padding-right"><button class="btn btn-danger btn-sm" type="button" onclick="removeIngredient('+newIngId+')"><i class="fa fa-minus"></i></button></div></div>');
+		$(".product-ingredient").append('<div class="row ingredient" id="ingredient-'+newIngId+'"><br><div class="col-xs-2"><input type="hidden" id="submenuId-'+newIngId+'" name="ingId['+newIngId+']"><input type="text" class="form-control" placeholder="Coffee Bean" id="ingName-'+newIngId+'" name="ingNames['+newIngId+']" required="true"></div><div class="col-xs-2"><select class="form-control select2" style="width: 100%;" name="ingQuantityTypes['+newIngId+']"><option selected="selected">- Select -</option>@foreach ($quantityTypes as $quantityType)<option value="{{ $quantityType->id }}">{{ ucfirst($quantityType->name) }} ({{ $quantityType->acronym }})</option>@endforeach</select></div><div class="col-xs-2"><input type="number" class="form-control" placeholder="12" id="ingExpect-'+newIngId+'" name="ingExpects['+newIngId+']" required="true"></div><div class="col-xs-2"><input type="number" class="form-control" placeholder="100" id="ingActual-'+newIngId+'" name="ingActuals['+newIngId+']" required="true"></div><div class="col-xs-2"><input type="number" class="form-control" placeholder="100" id="ingPerSale-'+newIngId+'" name="ingPerSales['+newIngId+']" required="true"></div><div class="col-xs-2"><button class="btn btn-danger btn-sm" type="button" onclick="removeIngredient('+newIngId+')"><i class="fa fa-minus"></i></button></div></div>');
 	}
 
 	var deleteKey = 0;
