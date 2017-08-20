@@ -15,8 +15,8 @@ class CreateIngredientProductDetailTable extends Migration
     {
         Schema::create('ingredient_product_detail', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ingredient_id');
-            $table->integer('product_detail_id');
+            $table->integer('ingredient_id')->unsigned();
+            $table->integer('product_detail_id')->unsigned();
             $table->float('sale_quantity', 8, 2);
             $table->timestamps();
         });

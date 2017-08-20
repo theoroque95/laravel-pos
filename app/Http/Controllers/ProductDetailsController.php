@@ -26,7 +26,7 @@ class ProductDetailsController extends Controller
         $ingredients = Ingredient::select('ingredients.*', 'quantity_types_ref.name as quantity_type_name')
                         ->join('quantity_types_ref', 'quantity_types_ref.id', 'ingredients.quantity_type_id')
                         ->get();
-                        
+
     	return view('products.details.add')->with([
     		'categories' => $categories,
     		'quantityTypes' => $quantityTypes,
@@ -35,20 +35,17 @@ class ProductDetailsController extends Controller
     }
 
     public function create(Request $request) {
-        dd($request->all());
     	$validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'actual_quantity' => 'required|numeric',
-            'expected_quantity' => 'required|numeric',
             'quantity_type' => 'required|numeric',
             'category' => 'required|numeric',
             'product_code' => 'required|string|max:255',
             'subnames.*' => 'required|string|max:255',
             'subprices.*' => 'required|numeric|digits_between:1,6',
             'subquantities.*' => 'required|numeric',
-            'ingNames.*' => 'required|string|max:255',
-            'ingPerSales.*' => 'required|numeric|min:1'
+            'ingNames.*.*' => 'required|string|max:255',
+            'ingPerSales.*.*' => 'required|numeric|min:1'
         ]);
 
         $attributeNames = array(
@@ -72,8 +69,6 @@ class ProductDetailsController extends Controller
         $product = Product::create([
             'name' => $request['name'],
             'description' => $request['description'],
-            'actual_quantity' => $request['actual_quantity'],
-            'expected_quantity' => $request['expected_quantity'],
             'quantity_type_id' => $request['quantity_type'],
             'category_id' => $request['category'],
             'product_code' => $request['product_code']
@@ -88,20 +83,12 @@ class ProductDetailsController extends Controller
                 'quantity' => $request['subquantities.'.$key]
             ]);
 
-            $ingIds = array_keys($request['ingId']);
-
-            foreach($ingKeys as $id) {
-                $productDetail->create([
-                    'name' => $request['ingNames.'.$key],
-                    'actual_quantity' => $request['ingActuals.'.$key],
-                    'quantity' => $request['ingExpects.'.$key]
-                    // 'quantity' => $request['ingQuantityTypes.'.$key]
-                    // 'quantity' => $request['ingredient_quantity_type.'.$key]
+            foreach($request['ingNames.'.$key] as $nameKey => $id) {
+                $productDetail->ingredients()->attach($id,[
+                    'sale_quantity' => $request['ingPerSales.'.$key.'.'.$nameKey]
                 ]);
             }
         }
-
-        
 
         return redirect('/details/'.$product->id)->with('notification', 'The product has been created.');
     }
@@ -112,12 +99,16 @@ class ProductDetailsController extends Controller
         $productSubmenus = ProductDetail::where('product_id', $id)->get();
         $categories = CategoriesRef::all();
         $quantityTypes = QuantityTypesRef::all();
+        $ingredients = Ingredient::select('ingredients.*', 'quantity_types_ref.name as quantity_type_name')
+                        ->join('quantity_types_ref', 'quantity_types_ref.id', 'ingredients.quantity_type_id')
+                        ->get();
 
     	return view('products.details.edit')->with([
     		'product' => $product,
             'productSubmenus' => $productSubmenus,
             'categories' => $categories,
-            'quantityTypes' => $quantityTypes
+            'quantityTypes' => $quantityTypes,
+            'ingredients' => $ingredients
     	]);
     }
 

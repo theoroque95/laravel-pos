@@ -36,4 +36,9 @@ class Ingredient extends Model
                     ->join('quantity_types_ref', 'ingredients.quantity_type_id', 'quantity_types_ref.id')
                     ->get();
     }
+
+    public function productDetails() {
+        return $this->belongsToMany('App\ProductDetail', 'ingredient_product_detail', 'ingredient_id', 'product_detail_id')
+                    ->withTimestamps();
+    }
 }
