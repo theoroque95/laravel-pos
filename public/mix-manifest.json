@@ -1,5 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/AdminLTE.css": "/css/AdminLTE.css",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/epos-2.3.0.js": "/js/epos-2.3.0.js",
+    "/js/epos-print-editor-en.js": "/js/epos-print-editor-en.js",
+    "/js/editor-main.js": "/js/editor-main.js",
+    "/js/editor-print.js": "/js/editor-print.js",
+    "/js/editor-preview.js": "/js/editor-preview.js",
+    "/js/editor-import.js": "/js/editor-import.js",
+    "/js/editor-export.js": "/js/editor-export.js"
 }

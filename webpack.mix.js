@@ -12,5 +12,12 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
+	.copy('resources/assets/js/epson/epos-2.3.0.js', 'public/js')
+	.copy('resources/assets/js/epson/epos-print-editor-en.js', 'public/js')
+	.copy('resources/assets/js/epson/editor-main.js', 'public/js')
+	.copy('resources/assets/js/epson/editor-print.js', 'public/js')
+	.copy('resources/assets/js/epson/editor-preview.js', 'public/js')
+	.copy('resources/assets/js/epson/editor-import.js', 'public/js')
+	.copy('resources/assets/js/epson/editor-export.js', 'public/js')
    .less('resources/assets/less/AdminLTE.less', 'public/css')
    .sass('resources/assets/sass/app.scss', 'public/css');

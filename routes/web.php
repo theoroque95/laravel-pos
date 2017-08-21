@@ -24,6 +24,7 @@ Auth::routes();
 // Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', 'DashboardController@show');
 	Route::get('/cashier', 'CashierController@show');
+	Route::post('/cashier', 'CashierController@submitTransaction');
 	Route::get('/cashier/menu-products', 'CashierController@getMenuProducts');
 	Route::get('/cashier/menu-submenus', 'CashierController@getMenuSubmenus');
 

@@ -30,4 +30,8 @@ class CashierController extends Controller
 		];
 		return response()->json($response);
 	}
+
+	public function submitTransaction(Request $request) {
+		dd($request->all());
+	}
 }

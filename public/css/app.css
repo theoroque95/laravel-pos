@@ -26399,3 +26399,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value=orange] {
   color: #fff;
 }
 
+.cashier-box {
+  min-height: 500px;
+}
+
