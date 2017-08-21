@@ -26388,3 +26388,14 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value=orange] {
   margin-top: 10px;
 }
 
+.box-body#products,
+.box-body#submenus,
+.box-body#quantity {
+  display: none;
+}
+
+.btn.btn-menu.selected {
+  background: #3c8dbc;
+  color: #fff;
+}
+

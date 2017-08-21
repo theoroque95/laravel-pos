@@ -39,7 +39,7 @@ class Product extends Model
      * Relate the category of the product.
      */
     public function quantityType() {
-        return $this->belongsTo('App\QuantityTypeRef', 'quantity_type_id');
+        return $this->belongsTo('App\QuantityTypesRef', 'quantity_type_id');
     }
 
     /**return

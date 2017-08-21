@@ -71,3 +71,14 @@
 .ingredient-wrapper {
 	margin-top: 10px;
 }
+
+.box-body#products,
+.box-body#submenus,
+.box-body#quantity {
+	display: none;
+}
+
+.btn.btn-menu.selected {
+	background: #3c8dbc;
+	color: #fff;
+}

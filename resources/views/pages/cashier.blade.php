@@ -24,68 +24,12 @@
                 <tr>
                   <th>Qty</th>
                   <th>Product</th>
-                  <th>Code</th>
                   <th>Description</th>
                   <th>Subtotal</th>
                 </tr>
                 </thead>
-                <tbody id="receipt">
-                <tr>
-                  <td>1</td>
-                  <td>Mocha Frappe</td>
-                  <td>MCHFRP</td>
-                  <td>Cold 12oz</td>
-                  <td>&#8369;90.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mocha Frappe</td>
-                  <td>MCHFRP</td>
-                  <td>Cold 12oz</td>
-                  <td>&#8369;90.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mocha Frappe</td>
-                  <td>MCHFRP</td>
-                  <td>Cold 12oz</td>
-                  <td>&#8369;90.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mocha Frappe</td>
-                  <td>MCHFRP</td>
-                  <td>Cold 12oz</td>
-                  <td>&#8369;90.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mocha Frappe</td>
-                  <td>MCHFRP</td>
-                  <td>Cold 12oz</td>
-                  <td>&#8369;90.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mocha Frappe</td>
-                  <td>MCHFRP</td>
-                  <td>Cold 12oz</td>
-                  <td>&#8369;90.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mocha Frappe</td>
-                  <td>MCHFRP</td>
-                  <td>Cold 12oz</td>
-                  <td>&#8369;90.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mocha Frappe</td>
-                  <td>MCHFRP</td>
-                  <td>Cold 12oz</td>
-                  <td>&#8369;90.00</td>
-                </tr>
+                <tbody id="receipt-body">
+
                 </tbody>
               </table>
             </div>
@@ -118,52 +62,152 @@
             </div>
           </div>
       </div>
-      <div class="col-xs-6">
+      <div class="col-xs-6 no-print">
         <div class="box box-primary">
           <div class="box-body" id="categories">
-            <h4>Select a category</h4>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Category 1
-            </a>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Category 2
-            </a>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Category 3
-            </a>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Category 4
-            </a>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Category 5
-            </a>
+            <h4>1. Select a category</h4>
+            <div class="category-wrapper">
+            @foreach($categories as $category)
+              <a class="btn btn-app btn-menu btn-category" onclick="getMenuProducts({{ $category->id }})" id="btn-category-{{ $category->id }}">
+                <i class="fa fa-list-ul"></i> {{ ucfirst($category->name) }}
+              </a>
+            @endforeach
+            </div>
           </div>
           <div class="box-body" id="products">
-            <h4>Select a product</h4>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Product 1
-            </a>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Product 2
-            </a>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Product 3
-            </a>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Product 4
-            </a>
-            <a class="btn btn-app">
-              <i class="fa fa-edit"></i> Product 5
-            </a>
+            <h4>2. Select a product</h4>
+            <div class="product-wrapper">
+            </div>
           </div>
-          <div class="box-body no-print">
-            <a target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-            <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment
+          <div class="box-body" id="submenus">
+            <h4>3. Select on the menu</h4>
+            <div class="submenu-wrapper">
+            </div>
+          </div>
+          <div class="box-body" id="quantity">
+            <h4>4. Input quantity</h4>
+            <div class="quantity-wrapper">
+            </div>
+            <button type="button" class="btn btn-success pull-right" onclick="addItem()"><i class="fa fa-plus"></i> Add Product
             </button>
           </div>
+        </div>
+        <div class="box-body pull-right">
+            <button type="button" class="btn btn-info" onclick="showDiscountModal()"><i class="fa fa-percent"></i> Apply Discount
+            </button>
+            <button type="button" class="btn btn-danger" onclick="clearAllItems()"><i class="fa fa-trash"></i> Void All Items
+            </button>
+            <button type="button" class="btn btn-success" onclick="submitTransaction()"><i class="fa fa-credit-card"></i> Submit Transaction
+            </button>
         </div>
       </div>
     </div>
   </section>
 </div>
+<form action="/cashier/submit" method="POST" style="display: none" id="form-cashier">
+  {{ csrf_field() }}
+</form>
+@endsection
+
+@section('scripts')
+<script>
+  var item = 0;
+
+  function getMenuProducts(id) {
+    $.ajax({
+      url : '/cashier/menu-products',
+      method: 'GET',
+      type: 'json',
+      data: {
+          categoryId: id
+      },
+      success : function(response) {
+        var products = response.products;
+        var append = "";
+
+        if (products != "") {
+          $.each(products, function(key, product) {
+            append += '<a class="btn btn-app btn-menu btn-product" onclick="getMenuSubmenus('+id+','+product.id+')" id="btn-product-'+product.id+'"><i class="fa fa-list-ul"></i>'+product.name+'</a>';
+          });
+        }
+        else {
+          append = '<span><i>No products available for this category.</i></span>';
+        }
+
+        $(".product-wrapper").html(append);
+        $(".box-body#products").show();
+        $(".submenu-wrapper").html("");
+        $(".quantity-wrapper").html("");
+        $("#btn-category-"+id).addClass('selected');
+      }
+    });
+  }
+
+  function getMenuSubmenus(categoryId, productId) {
+    $.ajax({
+      url : '/cashier/menu-submenus',
+      method: 'GET',
+      type: 'json',
+      data: {
+          productId: productId
+      },
+      success : function(response) {
+        var submenus = response.submenus;
+        var acronym = response.acronym;
+        var append = "";
+
+        if (submenus != "") {
+          $.each(submenus, function(key, submenu) {
+            append += '<a class="btn btn-app btn-menu btn-submenu" onclick="getMenuQuantity('+categoryId+','+productId+','+submenu.id+')" id="btn-submenu-'+submenu.id+'"><i class="fa fa-list-ul"></i><span id="submenu-name">'+submenu.name+'&nbsp;'+submenu.quantity+acronym+'</span> &#8369<span id="submenu-price">'+submenu.price+'</span></a>';
+          });
+        }
+        else {
+          append = '<span><i>No submenus available for this product.</i></span>';
+        }
+
+        $(".submenu-wrapper").html(append);
+        $(".box-body#submenus").show();
+        $(".quantity-wrapper").html("");
+        $("#btn-product-"+productId).addClass('selected');
+      }
+    });
+  }
+
+  function getMenuQuantity(categoryId, productId, submenuId) {
+    $(".quantity-wrapper").html('<div class="form-group"><input type="number" name="menu-quantity" id="menu-quantity" value="1"></div>');
+
+    $(".box-body#quantity").show();
+    $("#btn-submenu-"+submenuId).addClass('selected');
+  }
+
+  function clearAllItems() {
+    $("#receipt-body").html("");
+    $("#form-cashier").html('{{ csrf_field() }}');
+  }
+
+  function addItem() {
+    var quantity = $('#menu-quantity').val();
+    var price = $('#submenu-price').text();
+    var subtotal = quantity * price;
+
+    // Add to Display Receipt
+    $("#receipt-body").append('<tr><td>'+quantity+'</td><td>'+$('.btn-product.selected').text()+'</td><td>'+$('.btn-submenu.selected > #submenu-name').text()+'</td><td>&#8369;'+subtotal+'</td></tr>');
+
+    // Add to hidden form for submission
+    $("#form-cashier").append('<input type="hidden" name="productSubmenus['+item+']" value="'+$('.btn-submenu.selected').prop('id')+'">');
+    item++;
+
+    $(".btn-category").removeClass("selected");
+    $(".box-body#products").hide();
+    $(".product-wrapper").html("");
+    $(".box-body#submenus").hide();
+    $(".submenu-wrapper").html("");
+    $(".box-body#quantity").hide();
+    $(".quantity-wrapper").html("");
+  }
+
+  function showDiscountModal() {
+    alert('Feature coming soon!');
+  }
+</script>
 @endsection
