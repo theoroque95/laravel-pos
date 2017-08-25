@@ -15,7 +15,7 @@
     </a>
 
     <div class="pull-right hidden-xs">
-      <h4 id="datetime" onload="return getDateTime();"></h4>
+      <div id="clockbox"></div>
     </div>
   </nav>
 </header>

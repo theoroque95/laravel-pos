@@ -20,13 +20,17 @@ class SalesSeeder extends Seeder
     	$product1 = ProductDetail::find(1);
     	// Product 2
     	$product2 = ProductDetail::find(2);
+        $total = (($product1->price*2)+($product2->price));
+        $vat = $total * 0.12;
 
     	// Sales 1
     	$sale1 = $user1->sales()->create([
-    		'receipt_no' => '00001',
-    		'order_no' => '00100',
-    		'total' => (($product1->price*2)+($product2->price)),
-    		'tendered' => 1000
+    		'receipt_id' => 1,
+    		'order_no' => '00000001',
+    		'total' => $total,
+    		'tendered' => 1000,
+            'vat' => $vat,
+            'count_item' => 3
     	]);
     	// Sales 1 Products 1
     	$sale1->salesProducts()->create([

@@ -16,8 +16,6 @@ Auth::routes();
 // Route::group(['middleware' => 'guest'], function () {
 // 	Route::get('/login', 'Auth/LoginController@showLoginForm');
 // 	Route::post('/login', 'Auth/LoginController@login');
-// 	Route::get('/register', 'Auth/RegisterController@showRegistrationForm');
-// 	Route::post('/register', 'Auth/RegisterController@create');
 // });
 
 
@@ -27,6 +25,8 @@ Auth::routes();
 	Route::post('/cashier', 'CashierController@submitTransaction');
 	Route::get('/cashier/menu-products', 'CashierController@getMenuProducts');
 	Route::get('/cashier/menu-submenus', 'CashierController@getMenuSubmenus');
+
+	Route::post('/cashier/void', 'CashierController@voidSale');
 
 	// ADMIN
 	Route::group(['prefix' => 'staff', 'as' => 'staff::'], function () {
@@ -77,6 +77,14 @@ Route::group(['prefix' => 'quantitytypes', 'as' => 'quantitytypes::'], function 
     Route::post('/add', 'QuantityTypeController@create');
     Route::get('/{id}', 'QuantityTypeController@edit');
     Route::post('/{id}', 'QuantityTypeController@update');
+});
+
+Route::group(['prefix' => 'sales', 'as' => 'sales::'], function () {
+    Route::get('/', 'SalesController@show');
+    Route::get('/realtime', 'SalesController@showRealtime');
+    Route::get('/day', 'SalesController@showDay');
+    Route::get('/week', 'SalesController@showWeek');
+    Route::get('/month', 'SalesController@showMonth');
 });
 
 Route::post('/delete', 'DeleteController@delete');

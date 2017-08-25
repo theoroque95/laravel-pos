@@ -9,6 +9,7 @@ use App\CategoriesRef;
 use App\DiscountsRef;
 use App\QuantityTypesRef;
 use App\Ingredient;
+use App\Sale;
 
 class DeleteController extends Controller
 {

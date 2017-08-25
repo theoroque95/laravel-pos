@@ -25,7 +25,7 @@ class Sales extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'receipt_no', 'order_no', 'total', 'tendered', 'discount_id',
+        'user_id', 'receipt_id', 'order_no', 'total', 'tendered', 'discount_id', 'vat', 'count_item',
     ];
 
     /**
@@ -33,6 +33,13 @@ class Sales extends Model
      */
     public function salesProducts() {
         return $this->hasMany('App\SalesProduct', 'sales_id', 'id');
+    }
+
+    /**
+     * Get the products for a sale.
+     */
+    public function receipt() {
+        return $this->belongsTo('App\SalesProduct', 'receipt_id');
     }
 
     /**
@@ -52,8 +59,8 @@ class Sales extends Model
     /**
      * Get real time sales from 00:00 of day up to current time
      */
-    public function getSalesCurrentTime() {
-        //
+    public function getSalesRealtime() {
+        return Sales::withTrashed()->where('created_at', '>=', Carbon::today())->where('created_at', '<=', Carbon::now())->get();
     }
 
     /**

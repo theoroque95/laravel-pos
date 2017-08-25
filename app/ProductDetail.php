@@ -31,7 +31,7 @@ class ProductDetail extends Model
      * Get the products for a sale.
      */
     public function product() {
-        return $this->belongsTo('App\Product', 'id', 'product_id');
+        return $this->belongsTo('App\Product', 'product_id');
     }
 
     public function ingredients() {

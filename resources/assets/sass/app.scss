@@ -20,6 +20,7 @@
 @import "bower_components/jvectormap/jquery-jvectormap";
 @import "bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min";
 @import "bower_components/bootstrap-daterangepicker/daterangepicker.scss";
+@import "bower_components/datatables.net-bs/css/dataTables.bootstrap.min";
 
 // AdminLTE
 @import "./css/AdminLTE-bootstrap-social.min";
@@ -85,4 +86,10 @@
 
 .cashier-box {
 	min-height: 500px;
+}
+
+#clockbox {
+	margin-top: 10px;
+    margin-right: 15px;
+    color: #fff;
 }

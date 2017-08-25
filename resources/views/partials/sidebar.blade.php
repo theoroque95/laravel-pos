@@ -38,10 +38,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-hourglass-o"></i> Hour Sales</a></li>
-          <li><a href="#"><i class="fa fa-sun-o"></i> Today's Sales</a></li>
-          <li><a href="#"><i class="fa fa-clock-o"></i> Realtime Sales</a></li>
-          <li><a href="#"><i class="fa fa-calendar-o"></i> Week's Sales</a></li>
+          <li><a href="/sales"><i class="fa fa-money"></i> Sales</a></li>
+          <li><a href="#"><i class="fa fa-cutlery"></i> Items Sold</a></li>
         </ul>
       </li>
 

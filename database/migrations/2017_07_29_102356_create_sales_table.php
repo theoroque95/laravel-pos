@@ -15,11 +15,13 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->string('receipt_no');
-            $table->string('order_no');
+            $table->integer('user_id')->unsigned();
+            $table->integer('receipt_id')->unsigned();
+            $table->string('order_no', 10);
             $table->float('total', 8, 2);
+            $table->float('vat', 8, 2);
             $table->float('tendered', 8, 2);
+            $table->integer('count_item')->nullable();
             $table->integer('discount_id')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -16,7 +16,7 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="data-table" class="table table-bordered table-striped">
               <thead>
               <tr>
                 <th>Name</th>
@@ -55,9 +55,9 @@
                   <td>{{ $ingredient->quantity_type_name }} ({{ $ingredient->acronym }})</td>
                   <td>
                     <div class="btn-group">
-                      <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $ingredient->id }}" data-form="ingredient"><i class="fa fa-trash"></i></button></a>
-                      <a href="/ingredients/{{ $ingredient->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
-                      <a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-replenish" data-id="{{ $ingredient->id }}" data-acronym="{{ ucfirst($ingredient->quantity_type_name) }}"><i class="fa fa-plus"></i> Replenish</button></a>
+                      <a><button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" data-id="{{ $ingredient->id }}" data-form="ingredient"><i class="fa fa-trash"></i></button></a>
+                      <a href="/ingredients/{{ $ingredient->id }}"><button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button></a>
+                      <a><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-replenish" data-id="{{ $ingredient->id }}" data-acronym="{{ ucfirst($ingredient->quantity_type_name) }}"><i class="fa fa-plus"></i> Replenish</button></a>
                     </div>
                   </td>
                 </tr>

@@ -5,6 +5,15 @@
 // 	$("h4#datetime").text("{!! \Carbon\Carbon::now()->toDayDateTimeString(); !!}");
 // }, 1000);
 
+$('#data-table').DataTable({
+  'paging'      : true,
+  'lengthChange': false,
+  'searching'   : false,
+  'ordering'    : true,
+  'info'        : true,
+  'autoWidth'   : false
+})
+
 //Date picker
 $('#datepicker').datepicker({
   autoclose: true
@@ -35,4 +44,9 @@ function formatDate(dateArg) {
 
     return month + '/' + day + '/' + year;
 }
+
+function parseToPeso(number) {
+	return parseFloat(Math.round(number * 100) / 100).toFixed(2);
+}
+
 </script>
