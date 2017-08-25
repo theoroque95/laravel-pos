@@ -3,6 +3,14 @@
 @section('content')
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="pull-left">
+
+    </div>
+    <div class="pull-right">
+      <button type="button" class="btn btn-success"><i class="fa fa-printer"></i> Print Report</button>
+    </div>
+  </section>
   <section class="content">
     @include('partials.notification')
     <div class="row">

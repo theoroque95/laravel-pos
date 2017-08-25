@@ -75,6 +75,9 @@ class ProductsSeeder extends Seeder
     		'quantity' => 12,
     		'price' => 110
     	]);
+        $productDetail2->ingredients()->save($ingredient1, [
+            'sale_quantity' => 7
+        ]);
         $productDetail2->ingredients()->save($ingredient2, [
             'sale_quantity' => 10
         ]);

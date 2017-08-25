@@ -39,6 +39,7 @@ class Ingredient extends Model
 
     public function productDetails() {
         return $this->belongsToMany('App\ProductDetail', 'ingredient_product_detail', 'ingredient_id', 'product_detail_id')
-                    ->withTimestamps();
+                    ->withTimestamps()
+                    ->withPivot('sale_quantity');
     }
 }

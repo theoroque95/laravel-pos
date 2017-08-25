@@ -12,7 +12,7 @@
 
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
-      <li class="active"><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <li><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
       <li><a href="/cashier"><i class="fa fa-money"></i> <span>Cashier</span></a></li>
       <li><a href="/staff"><i class="fa fa-user"></i> <span>Staff</span></a></li>
       <li><a href="/discounts"><i class="fa fa-percent"></i> <span>Discounts</span></a></li>

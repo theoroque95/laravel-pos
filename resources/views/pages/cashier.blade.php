@@ -96,7 +96,7 @@
             <h4>4. Input quantity</h4>
             <div class="quantity-wrapper">
             </div>
-            <button type="button" class="btn btn-success pull-right" onclick="addItem()"><i class="fa fa-plus"></i> Add Product
+            <button type="button" class="btn btn-success pull-right" onclick="addItem()"><i class="fa fa-plus"></i> Add Item
             </button>
           </div>
         </div>
@@ -120,6 +120,9 @@
 <form action="/cashier" method="POST" style="display: none" id="form-cashier">
   {{ csrf_field() }}
 </form>
+@foreach($ingredients as $ingredient)
+<input type="hidden" name="ingredient-{{ $ingredient->id }}" id="ingredient-{{ $ingredient->id }}" actual="{{ $ingredient->actual_quantity }}">
+@endforeach
 
 @include('partials.modalCashier')
 @include('partials.modalVoid')
@@ -173,11 +176,13 @@
       success : function(response) {
         var submenus = response.submenus;
         var acronym = response.acronym;
+        var ingredients = response.ingredients;
+        var saleQuantity = response.saleQuantity;
         var append = "";
 
         if (submenus != "") {
           $.each(submenus, function(key, submenu) {
-            append += '<button class="btn btn-app btn-menu btn-submenu" onclick="getMenuQuantity('+categoryId+','+productId+','+submenu.id+')" id="btn-submenu-'+submenu.id+'"><i class="fa fa-list-ul"></i><span id="submenu-name">'+submenu.name+'&nbsp;'+submenu.quantity+acronym+'</span> &#8369; <span id="submenu-price">'+parseToPeso(submenu.price)+'</span></button>';
+            append += '<button class="btn btn-app btn-menu btn-submenu" onclick="getMenuQuantity('+categoryId+','+productId+','+submenu.id+')" id="btn-submenu-'+submenu.id+'" ingredients="'+ingredients[key]+'" saleQuantity="'+saleQuantity[key]+'"><i class="fa fa-list-ul"></i><span id="submenu-name">'+submenu.name+'&nbsp;'+submenu.quantity+acronym+'</span> &#8369; <span id="submenu-price">'+parseToPeso(submenu.price)+'</span></button>';
           });
         }
         else {
@@ -213,31 +218,68 @@
 
   function addItem() {
     var quantity = $('#menu-quantity').val();
+    var add = true;
+    var available = 0;
 
     if (quantity > 0) {
-      var price = parseFloat($('.btn-submenu.selected #submenu-price').text());
-      var subtotal = quantity * price;
+      var productIngredients = ($('.btn-submenu.selected').attr('ingredients')).split(',');
+      var saleQuantity = ($('.btn-submenu.selected').attr('salequantity')).split(',');
 
-      // Add to Display Receipt
-      $("#receipt-body").append('<tr><td>'+quantity+'</td><td>'+$('.btn-product.selected').text()+'</td><td>'+$('.btn-submenu.selected > #submenu-name').text()+'</td><td>&#8369; '+subtotal+'</td></tr>');
+      $.each(productIngredients, function(key, productIngredient) {
+        var actual = parseFloat($('#ingredient-'+productIngredient).attr('actual'));
+        var productSaleQuantity = parseFloat(saleQuantity[key]);
+        var deduct = quantity * productSaleQuantity;
 
-      // Add to hidden form for submission
-      $("#form-cashier").append('<input type="hidden" name="productSubmenus['+item+']" value="'+$('.btn-submenu.selected').prop('id')+'"><input type="hidden" name="productQuantities['+item+']" value="'+quantity+'">');
-      item++;
+        if ((actual - deduct) > 0) {
+          add = true;
+        }
+        else {
+          available = parseInt(actual/productSaleQuantity);
+          add = false;
+          return false;
+        }
 
-      // Add to Amount Due Area
-      var receiptSubtotal = parseFloat($("#receipt-subtotal").text()) + subtotal;
-      var tendered = parseFloat($("#receipt-tendered").text());
+      });
 
-      setAmountDue(receiptSubtotal, tendered);
+      if (add == true) {
+        var price = parseFloat($('.btn-submenu.selected #submenu-price').text());
+        var subtotal = quantity * price;
 
-      $(".btn-category").removeClass("selected");
-      $(".box-body#products").hide();
-      $(".product-wrapper").html("");
-      $(".box-body#submenus").hide();
-      $(".submenu-wrapper").html("");
-      $(".box-body#quantity").hide();
-      $(".quantity-wrapper").html("");
+        // Add to Display Receipt
+        $("#receipt-body").append('<tr><td>'+quantity+'</td><td>'+$('.btn-product.selected').text()+'</td><td>'+$('.btn-submenu.selected > #submenu-name').text()+'</td><td>&#8369; '+subtotal+'</td></tr>');
+
+        // Add to hidden form for submission
+        $("#form-cashier").append('<input type="hidden" name="productSubmenus['+item+']" value="'+$('.btn-submenu.selected').prop('id')+'"><input type="hidden" name="productQuantities['+item+']" value="'+quantity+'">');
+        item++;
+
+        // Add to Amount Due Area
+        var receiptSubtotal = parseFloat($("#receipt-subtotal").text()) + subtotal;
+        var tendered = parseFloat($("#receipt-tendered").text());
+
+        setAmountDue(receiptSubtotal, tendered);
+
+        $(".btn-category").removeClass("selected");
+        $(".box-body#products").hide();
+        $(".product-wrapper").html("");
+        $(".box-body#submenus").hide();
+        $(".submenu-wrapper").html("");
+        $(".box-body#quantity").hide();
+        $(".quantity-wrapper").html("");
+
+        $.each(productIngredients, function(key, productIngredient) {
+          var actual = parseFloat($('#ingredient-'+productIngredient).attr('actual'));
+          var newActual = (actual - (quantity * parseFloat(saleQuantity[key])));
+
+          $('#ingredient-'+productIngredient).attr('actual', newActual);
+        });
+      }
+      else if (available == 0) {
+        alert('The ingredient/s of this product is out of stock.');
+      }
+      else {
+        alert('Only '+available+' of this product is available.');
+      }
+
     }
     else {
       alert('Quantity must not be greater than 0');

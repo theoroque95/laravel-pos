@@ -9,6 +9,7 @@ use App\ProductDetail;
 use App\User;
 use App\Sales;
 use App\SalesProduct;
+use App\Ingredient;
 use App\Traits\ReceiptTrait;
 use Hash;
 
@@ -18,8 +19,10 @@ class CashierController extends Controller
 
     public function show() {
     	$categories = CategoriesRef::all();
+    	$ingredients = Ingredient::all();
 		return view('pages.cashier')->with([
-    		'categories' => $categories
+    		'categories' => $categories,
+    		'ingredients' => $ingredients
     	]);;
 	}
 
@@ -31,10 +34,29 @@ class CashierController extends Controller
 
 	public function getMenuSubmenus(Request $request) {
     	$product = Product::find($request['productId']);
+    	$saleQuantity = [];
+    	$ingredients = [];
+
+    	foreach($product->productDetails as $productDetail) {
+	    	$productIngredients = [];
+	    	$productSaleQuantity = [];
+
+    		foreach($productDetail->ingredients as $key => $ingredient) {
+				array_push($productSaleQuantity, (int)$ingredient->pivot->sale_quantity);
+    			array_push($productIngredients, $ingredient->id);
+    		}
+
+    		array_push($saleQuantity, $productSaleQuantity);
+    		array_push($ingredients, $productIngredients);
+    	}
+
 		$response = [
 			'submenus' => $product->productDetails,
-			'acronym' => $product->quantityType->acronym
+			'acronym' => $product->quantityType->acronym,
+			'saleQuantity' => $saleQuantity,
+			'ingredients' => $ingredients
 		];
+
 		return response()->json($response);
 	}
 
@@ -63,6 +85,8 @@ class CashierController extends Controller
     		$productDetailIdArg = explode('-', $productSubmenu);
     		$productDetailId = $productDetailIdArg[2];
     		$product = new Product;
+    		$quantity = $request['productQuantities.'.$key];
+    		$deductQuantity = 0;
 
     		$sale->salesProducts()->create([
 	    		'product_detail_id' => $productDetailId,
@@ -70,11 +94,22 @@ class CashierController extends Controller
 	    	]);
 
 	    	$productDetail = ProductDetail::find($productDetailId);
+
+	    	// Deduct Ingredient
+	    	foreach($productDetail->ingredients as $productIngredient) {
+	    		while ($deductQuantity < $quantity) {
+	    			$productIngredient->actual_quantity = $productIngredient->actual_quantity - $productIngredient->pivot->sale_quantity;
+		    		$productIngredient->save();
+
+		    		$deductQuantity++;
+	    		}
+	    	}
+
 	    	array_push($productDetails, $productDetail);
 	    	array_push($products, $product->getProduct($productDetail->product_id));
 	    	array_push($productQuantities, $request['productQuantities.'.$key]);
 
-	    	$noOfItems += (int)$request['productQuantities.'.$key];
+	    	$noOfItems += (int)$quantity;
     	}
 
     	$sale->count_item = $noOfItems;
