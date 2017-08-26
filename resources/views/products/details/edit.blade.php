@@ -13,7 +13,7 @@
 		@include('partials.error')
 		<div class="row">
 			<!-- left column -->
-			<form role="form" method="POST" action="/details/edit/{{$product->id}}">
+			<form role="form" method="POST" action="/details/{{$product->id}}">
 			    {{ csrf_field() }}
 				<div class="col-md-12">
 					<div class="box box-primary">
@@ -123,12 +123,12 @@
 	var ingDeleteKey = 0;
 	function removeIngredient(categoryId, ingredientId) {
 		if ($('.category-ingredient-'+categoryId+' > div.row').length > 1) {
-			var deleteId = $("#ingredient-"+ingredientId).val();
+			var deleteId = $("#ingredient-"+categoryId+"-"+ingredientId).val();
 			if (typeof deleteId != 'undefined') {
-				console.log('deleteId: '+deleteId);
 				$('.category-ingredient-'+categoryId).append('<input type="hidden" id="ingDelete-'+ingDeleteKey+'" name="ingDeletes['+ingDeleteKey+']" value="'+deleteId+'">');
 				ingDeleteKey++;
 			}
+
 			$('.category-ingredient-'+categoryId+' > .ingredient-'+ingredientId).remove();
 		}
 		else {
@@ -138,11 +138,11 @@
 </script>
 	@foreach($productSubmenus as $productSubmenu)
 	<script>
-	$(".menu-subcategory").append('<div class="row submenu" id="submenu-'+newId+'"><br><div class="col-sm-2"><input type="hidden" id="submenuId-'+newId+'" name="submenuId['+newId+']"><input type="text" class="form-control" placeholder="Cold" id="subname-'+newId+'" name="subnames['+newId+']" required="true" value="{{ $productSubmenu->name }}"></div><div class="col-sm-2"><input type="number" class="form-control" placeholder="12" id="subquantity-'+newId+'" name="subquantities['+newId+']" required="true" value="{{ $productSubmenu->quantity }}"></div><div class="col-sm-2"><input type="number" class="form-control" placeholder="100" id="subprice-'+newId+'" name="subprices['+newId+']" required="true" value="{{ $productSubmenu->price }}"></div><div class="col-sm-1 no-padding-right"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></button></div><div class="col-sm-5 category-ingredient-'+newId+'"></div></div>');
+	$(".menu-subcategory").append('<div class="row submenu" id="submenu-'+newId+'"><br><div class="col-sm-2"><input type="hidden" id="submenuId-'+newId+'" name="submenuId['+newId+']" value="'+newId+'"><input type="text" class="form-control" placeholder="Cold" id="subname-'+newId+'" name="subnames['+newId+']" required="true" value="{{ $productSubmenu->name }}"></div><div class="col-sm-2"><input type="number" class="form-control" placeholder="12" id="subquantity-'+newId+'" name="subquantities['+newId+']" required="true" value="{{ $productSubmenu->quantity }}"></div><div class="col-sm-2"><input type="number" class="form-control" placeholder="100" id="subprice-'+newId+'" name="subprices['+newId+']" required="true" value="{{ $productSubmenu->price }}"></div><div class="col-sm-1 no-padding-right"><button class="btn btn-danger btn-sm" type="button" onclick="removeMenuSubcategory('+newId+')"><i class="fa fa-minus"></i></button></div><div class="col-sm-5 category-ingredient-'+newId+'"></div></div>');
 
 		var ingId = 0;
 		@foreach($productSubmenu->ingredients as $productIngredient)
-			var appendText = '<div class="row ingredient-'+ingId+'"><div class="col-sm-5 no-padding-left"><select class="form-control select2" style="width: 100%;" name="ingNames['+newId+']['+ingId+']"><option selected="selected">- Select Ingredient -</option>@foreach ($ingredients as $ingredient)<option value="{{ $ingredient->id }}" class="{{ $ingredient->id }}">{{ ucfirst($ingredient->name) }} ({{ $ingredient->quantity_type_name }})</option>@endforeach</select></div><div class="col-sm-4 no-padding-right no-padding-left"><input type="number" class="form-control" placeholder="Deduct per sale" id="ingPerSale-'+newId+'-'+ingId+'" name="ingPerSales['+newId+']['+ingId+']" required="true" value="{{ $productIngredient->pivot->sale_quantity }}"></div><div class="col-sm-3 no-padding-right"><button class="btn btn-danger btn-sm" type="button" onclick="removeIngredient('+newId+','+ingId+')"><i class="fa fa-minus"></i></button>';
+			var appendText = '<div class="row ingredient-'+ingId+'"><div class="col-sm-5 no-padding-left"><input type="hidden" id="ingredient-'+newId+'-'+ingId+'" name="ingredient['+newId+']['+ingId+']" value="'+ingId+'"><select class="form-control select2" style="width: 100%;" name="ingNames['+newId+']['+ingId+']"><option selected="selected">- Select Ingredient -</option>@foreach ($ingredients as $ingredient)<option value="{{ $ingredient->id }}" class="{{ $ingredient->id }}">{{ ucfirst($ingredient->name) }} ({{ $ingredient->quantity_type_name }})</option>@endforeach</select></div><div class="col-sm-4 no-padding-right no-padding-left"><input type="number" class="form-control" placeholder="Deduct per sale" id="ingPerSale-'+newId+'-'+ingId+'" name="ingPerSales['+newId+']['+ingId+']" required="true" value="{{ $productIngredient->pivot->sale_quantity }}"></div><div class="col-sm-3 no-padding-right"><button class="btn btn-danger btn-sm" type="button" onclick="removeIngredient('+newId+','+ingId+')"><i class="fa fa-minus"></i></button>';
 
 			if (ingId == 0) {
 				appendText += ' <button class="btn btn-success btn-sm btn-add-'+newId+'" type="button" onclick="addIngredient('+newId+','+ingId+')"><i class="fa fa-plus"></i></button>';

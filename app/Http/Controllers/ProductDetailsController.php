@@ -113,27 +113,30 @@ class ProductDetailsController extends Controller
     }
 
     public function update(Request $request, $id) {
+        dd($request->all());
     	$validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'actual_quantity' => 'required|numeric',
-            'expected_quantity' => 'required|numeric',
             'quantity_type' => 'required|numeric',
             'category' => 'required|numeric',
             'product_code' => 'required|string|max:255',
             'subnames.*' => 'required|string|max:255',
             'subprices.*' => 'required|numeric|digits_between:1,6',
-            'subquantities.*' => 'required|numeric'
+            'subquantities.*' => 'required|numeric',
+            'ingNames.*.*' => 'required|string|max:255',
+            'ingPerSales.*.*' => 'required|numeric|min:1'
         ]);
 
         $attributeNames = array(
-           'subnames.*' => 'subcategory name',
-           'subprices.*' => 'subprice',
-           'subquantities.*' => 'subquantity',
-           'quantity_type' => 'quantity type',
-           'product_code' => 'product code',
-           'actual_quantity' => 'actual quantity',
-           'expected_quantity' => 'expected quantity'
+            'subnames.*' => 'subcategory name',
+            'subprices.*' => 'subprice',
+            'subquantities.*' => 'subquantity',
+            'quantity_type' => 'quantity type',
+            'product_code' => 'product code',
+            'actual_quantity' => 'actual quantity',
+            'expected_quantity' => 'expected quantity',
+            'ingNames' => 'ingredient name',
+            'ingPerSales' => 'ingredient deduction per sale'
         );
 
         $validator->setAttributeNames($attributeNames);
@@ -146,16 +149,21 @@ class ProductDetailsController extends Controller
         $product = Product::find($id);
         $product->name = $request['name'];
         $product->description = $request['description'];
-        $product->actual_quantity = $request['actual_quantity'];
-        $product->expected_quantity = $request['expected_quantity'];
         $product->quantity_type_id = $request['quantity_type'];
         $product->category_id = $request['category'];
         $product->product_code = $request['product_code'];
         $product->save();
 
-        // Delete
+        // Deleted Submenus
         if ($request['deletes']) {
             foreach ($request['deletes'] as $delete) {
+                $product->productDetails()->where('id',$delete)->delete($request['deletes']);
+            }
+        }
+
+        // Deleted Ingredients
+        if ($request['ingDeletes']) {
+            foreach ($request['ingDeletes'] as $delete) {
                 $product->productDetails()->where('id',$delete)->delete($request['deletes']);
             }
         }
