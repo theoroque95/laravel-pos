@@ -15,6 +15,7 @@ class ProductsSeeder extends Seeder
     {
         $ingredient1 = Ingredient::find(1);
         $ingredient2 = Ingredient::find(2);
+        $ingredient3 = Ingredient::find(3);
 
     	// PRODUCT 1
     	$product1 = Product::create([
@@ -69,6 +70,9 @@ class ProductsSeeder extends Seeder
         $productDetail2->ingredients()->save($ingredient1, [
             'sale_quantity' => 10
         ]);
+        $productDetail2->ingredients()->save($ingredient3, [
+            'sale_quantity' => 10
+        ]);
 
     	$productDetail2 = $product2->productDetails()->create([
     		'name' => 'Cold',
@@ -81,6 +85,9 @@ class ProductsSeeder extends Seeder
         $productDetail2->ingredients()->save($ingredient2, [
             'sale_quantity' => 10
         ]);
+        $productDetail2->ingredients()->save($ingredient3, [
+            'sale_quantity' => 10
+        ]);
 
     	$productDetail2 = $product2->productDetails()->create([
     		'name' => 'Cold',
@@ -88,6 +95,9 @@ class ProductsSeeder extends Seeder
     		'price' => 120
     	]);
         $productDetail2->ingredients()->save($ingredient1, [
+            'sale_quantity' => 10
+        ]);
+        $productDetail2->ingredients()->save($ingredient2, [
             'sale_quantity' => 10
         ]);
 

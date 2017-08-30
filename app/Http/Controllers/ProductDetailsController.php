@@ -113,7 +113,6 @@ class ProductDetailsController extends Controller
     }
 
     public function update(Request $request, $id) {
-        dd($request->all());
     	$validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
@@ -147,6 +146,7 @@ class ProductDetailsController extends Controller
 
         // Update Product Table
         $product = Product::find($id);
+
         $product->name = $request['name'];
         $product->description = $request['description'];
         $product->quantity_type_id = $request['quantity_type'];
@@ -163,15 +163,16 @@ class ProductDetailsController extends Controller
 
         // Deleted Ingredients
         if ($request['ingDeletes']) {
-            foreach ($request['ingDeletes'] as $delete) {
-                $product->productDetails()->where('id',$delete)->delete($request['deletes']);
+            foreach ($request['ingDeletes'] as $key => $ingDeleteValues) {
+                $productDetail = ProductDetail::find($key);
+                $productDetail->ingredients()->detach($ingDeleteValues);
             }
         }
 
         // Update or Create Product Details
         $keys = array_keys($request['subnames']);
         foreach ($keys as $key) {
-            $product->productDetails()->updateOrCreate(
+            $productDetail = $product->productDetails()->updateOrCreate(
                 [
                     'name' => $request['subnames.'.$key],
                     'quantity' => $request['subquantities.'.$key]
@@ -182,7 +183,18 @@ class ProductDetailsController extends Controller
                     'price' => $request['subprices.'.$key]
                 ]
             );
+
+            foreach($request['ingNames'] as $nameKey => $id) {
+                foreach ($request['ingPerSales.'.$nameKey] as $saleQuantity) {
+                    $productDetail->ingredients()->attach($id, [
+                        'sale_quantity' => $saleQuantity
+                    ]);
+                }    
+                    
+            } 
         }
+
+        
 
         return redirect()->back()->with('notification', 'The product has been updated.');
     }

@@ -389,13 +389,14 @@
           gProductQuantities = (response.productQuantities).slice(0);
 
           // FINALLY: Print the receipt
-          ePosDev.connect('192.168.192.168', 8008, cbConnect);
+          ePosDev.connect('192.168.192.168', 8001, cbConnect);
         }
       });
     }
   }
 
   function cbConnect(data) {
+    console.log(data);
     if(data == 'OK' || data == 'SSL_CONNECT_OK') {
         ePosDev.createDevice('local_printer', ePosDev.DEVICE_TYPE_PRINTER,
                               {'crypto':false, 'buffer':false}, cbCreateDevice_printer);
@@ -436,6 +437,7 @@
     printer.addTextAlign(printer.ALIGN_CENTER);
     printer.addText(formatDateCashier(new Date())+'\n');
     printer.addPulse(printer.DRAWER_1, printer.PULSE_100);
+    console.log(printer);
     printer.send();
   }
 
