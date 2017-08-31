@@ -64,23 +64,37 @@ class Sales extends Model
     }
 
     /**
-     * Get real time number of orders from 00:00 of day up to current time
+     * Get real time sales from previous hour to current time
      */
-    public function getOrdersCurrentTime() {
-        //
+    public function getSalesHour() {
+        return Sales::withTrashed()->where('created_at', '>=', Carbon::now()->subHour())->where('created_at', '<=', Carbon::now())->get();
     }
 
     /**
      * Get real time sales from previous hour to current time
      */
-    public function getSalesHour() {
-        //
+    public function getSalesWeek() {
+        return Sales::withTrashed()->where('created_at', '>=', Carbon::now()->subWeek())->where('created_at', '<=', Carbon::now())->get();
+    }
+
+    /**
+     * Get real time sales from previous hour to current time
+     */
+    public function getSalesMonth() {
+        return App\Sales::withTrashed()->where('created_at', '>=', Carbon\Carbon::now()->subMonth())->where('created_at', '<=', Carbon\Carbon::now())->get();
+    }
+
+    /**
+     * Get real time number of orders from 00:00 of day up to current time
+     */
+    public function getOrdersCurrentTime() {
+        return  Sales::withTrashed()->where('created_at', '>=', Carbon::today())->where('created_at', '<=', Carbon::now())->count();
     }
 
     /**
      * Get real time number of products sold from 00:00 of day up to current time
      */
     public function getProductsSoldCurrentTime() {
-        //
+        return Sales::withTrashed()->where('created_at', '>=', Carbon::today())->where('created_at', '<=', Carbon::now())->sum('count_item');
     }
 }

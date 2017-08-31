@@ -34566,10 +34566,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	})($);
 
 	/*************************************************
- 
- 		BOOTSTRAP-SLIDER SOURCE CODE
- 
- **************************************************/
+ 			BOOTSTRAP-SLIDER SOURCE CODE
+ 	**************************************************/
 
 	(function ($) {
 
@@ -34675,8 +34673,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		};
 
 		/*************************************************
-  							CONSTRUCTOR
-  		**************************************************/
+  						CONSTRUCTOR
+  	**************************************************/
 		Slider = function Slider(element, options) {
 			createNewSlider.call(this, element, options);
 			return this;
@@ -34686,7 +34684,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 			/*
    	The internal state object is used to store data about the current 'state' of slider.
-   			This includes values such as the `value`, `enabled`, etc...
+   		This includes values such as the `value`, `enabled`, etc...
    */
 			this._state = {
 				value: null,
@@ -34705,8 +34703,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			}
 
 			/*************************************************
-   						Process Options
-   		**************************************************/
+   					Process Options
+   	**************************************************/
 			options = options ? options : {};
 			var optionTypes = Object.keys(this.defaultOptions);
 
@@ -34753,8 +34751,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			}
 
 			/*************************************************
-   						Create Markup
-   		**************************************************/
+   					Create Markup
+   	**************************************************/
 
 			var origWidth = this.element.style.width;
 			var updateSlider = false;
@@ -34897,8 +34895,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			}
 
 			/*************************************************
-   							Setup
-   		**************************************************/
+   						Setup
+   	**************************************************/
 			this.eventToCallbackMap = {};
 			this.sliderElem.id = this.options.id;
 
@@ -35019,8 +35017,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			this.setValue(this._state.value);
 
 			/******************************************
-   					Bind Event Listeners
-   		******************************************/
+   				Bind Event Listeners
+   	******************************************/
 
 			// Bind keyboard handlers
 			this.handle1Keydown = this._keydown.bind(this, 0);
@@ -35066,10 +35064,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		}
 
 		/*************************************************
-  					INSTANCE PROPERTIES/METHODS
-  		- Any methods bound to the prototype are considered
+  				INSTANCE PROPERTIES/METHODS
+  	- Any methods bound to the prototype are considered
   part of the plugin's `public` interface
-  		**************************************************/
+  	**************************************************/
 		Slider.prototype = {
 			_init: function _init() {}, // NOTE: Must exist to support bridget
 
@@ -35266,11 +35264,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			},
 
 			/******************************+
-   					HELPERS
-   		- Any method that is not part of the public interface.
+   				HELPERS
+   	- Any method that is not part of the public interface.
    - Place it underneath this comment block and write its signature like so:
-   		  					_fnName : function() {...}
-   		********************************/
+   	  					_fnName : function() {...}
+   	********************************/
 			_removeSliderEventHandlers: function _removeSliderEventHandlers() {
 				// Remove keydown event listeners
 				this.handle1.removeEventListener("keydown", this.handle1Keydown, false);
@@ -35906,8 +35904,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		};
 
 		/*********************************
-  			Attach to global namespace
-  		*********************************/
+  		Attach to global namespace
+  	*********************************/
 		if ($) {
 			var namespace = $.fn.slider ? 'bootstrapSlider' : 'slider';
 			$.bridget(namespace, Slider);

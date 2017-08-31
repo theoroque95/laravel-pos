@@ -189,12 +189,11 @@ class ProductDetailsController extends Controller
                     $productDetail->ingredients()->attach($id, [
                         'sale_quantity' => $saleQuantity
                     ]);
-                }    
-                    
-            } 
+                }
+            }
         }
 
-        
+
 
         return redirect()->back()->with('notification', 'The product has been updated.');
     }
