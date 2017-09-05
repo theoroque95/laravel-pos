@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
@@ -45,7 +46,6 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        dd($request);
         $this->validateLogin($request);
 
         if ($this->attemptLogin($request)) {
@@ -103,7 +103,6 @@ class LoginController extends Controller
     {
         $request->session()->regenerate();
 
-
         return $this->authenticated($request, $this->guard()->user())
                 ?: redirect()->intended('/');
     }
@@ -146,7 +145,7 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return 'email';
+        return 'username';
     }
 
     /**
@@ -161,7 +160,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect('/');
+        return redirect('/login');
     }
 
     /**
