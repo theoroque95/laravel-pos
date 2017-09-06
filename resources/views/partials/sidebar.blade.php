@@ -6,7 +6,7 @@
     <div class="user-panel">
       <div class="pull-left info">
         <!-- TODO: User's name -->
-        <p>Alexander Pierce</p>
+        <p>{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</p>
       </div>
     </div>
 

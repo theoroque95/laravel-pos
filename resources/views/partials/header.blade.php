@@ -14,8 +14,10 @@
       <span class="sr-only">Toggle navigation</span>
     </a>
 
-    <div class="pull-right hidden-xs">
-      <div id="clockbox"></div>
+    <div class="pull-right">
+      <!-- <div id="clockbox"></div> -->
+      <br>
+      <a href="/logout" id="logout">Logout</a>
     </div>
   </nav>
 </header>

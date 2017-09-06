@@ -18,16 +18,16 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::post('/login', 'Auth\LoginController@login');
 });
 
-Route::group(['middleware' => 'App\Http\Middleware\AuthMiddleware'], function () {
+Route::group(['middleware' => 'authenticate'], function () {
 	Route::get('/logout', 'Auth\LoginController@logout');
- 
+
 	Route::get('/', 'CashierController@show');
 	Route::post('/cashier', 'CashierController@submitTransaction');
 	Route::get('/cashier/menu-products', 'CashierController@getMenuProducts');
 	Route::get('/cashier/menu-submenus', 'CashierController@getMenuSubmenus');
 	Route::post('/cashier/void', 'CashierController@voidSale');
 
-	Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
+	Route::group(['middleware' => 'admin'], function() {
 		// ADMIN
 		Route::group(['prefix' => 'staff', 'as' => 'staff::'], function () {
 		    Route::get('/', 'StaffController@show');

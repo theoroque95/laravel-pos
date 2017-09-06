@@ -28,15 +28,15 @@ class UserSeeder extends Seeder
 
         // Staff user
         User::create([
-        	'username' => 'staff',
+        	'username' => 'cashier',
         	'first_name' => 'Shy',
-        	'last_name' => 'Roque',
-        	'email' => 'roqueshy@gmail.com',
+        	'last_name' => 'Sastrillas',
+        	'email' => 'shy.sastrillas@gmail.com',
         	'phone' => '09175073906',
         	'birthdate' => Carbon::createFromFormat('d/m/Y', '10/02/1996'),
         	'address' => 'San Jose Del Monte, Bulacan',
         	'is_admin' => false,
-        	'password' => Hash::make('staff')
+        	'password' => Hash::make('cashier')
         ]);
     }
 }

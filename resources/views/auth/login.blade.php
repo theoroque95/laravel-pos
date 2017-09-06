@@ -8,8 +8,6 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-      <p class="login-box-msg">Sign in</p>
-
       <form method="POST" action="/login">
           {{ csrf_field() }}
         <div class="form-group has-feedback">

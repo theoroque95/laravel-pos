@@ -5,7 +5,11 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="pull-left">
-
+    <a href="/sales" class="btn btn-info">All</a>
+      <a href="/sales?table=realtime" class="btn btn-info">Realtime</a>
+      <a href="/sales?table=month" class="btn btn-info">Month</a>
+      <a href="/sales?table=week" class="btn btn-info">Week</a>
+      <a href="/sales?table=hour" class="btn btn-info">Hour</a>
     </div>
     <div class="pull-right">
       <button type="button" class="btn btn-success"><i class="fa fa-printer"></i> Print Report</button>
@@ -17,7 +21,7 @@
       <div class="col-xs-12">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Sales Table</h3>
+            <h3 class="box-title">Sales Table {{ $table != null ? '('.ucfirst($table).')' : ''}}</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">

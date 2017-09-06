@@ -18,16 +18,31 @@ class SalesController extends Controller
 {
 	use ReceiptTrait;
 
-	public function show() {
-		$sales = Sales::withTrashed()
-		->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
-		->join('users', 'users.id', 'sales.user_id')
-		->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
-		->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')
-		->get();
+	public function show(Request $request) {
+		$table = $request->table;
+		$salesArg = new Sales;
+		$active = '';
+
+		if (!$table) {
+			$sales = $salesArg->getSalesAll();
+			$active = 'none';
+		}
+		else if ($table == 'realtime') {
+			$sales = $salesArg->getSalesRealtime();
+		}
+		else if ($table == 'hour') {
+			$sales = $salesArg->getSalesHour();
+		}
+		else if ($table == 'week') {
+			$sales = $salesArg->getSalesWeek();
+		}
+		else if ($table == 'month') {
+			$sales = $salesArg->getSalesMonth();
+		}
 
 		return view('reports.sales.index')->with([
-			'sales' => $sales
+			'sales' => $sales,
+			'table' => $table
 		]);
 	}
 }

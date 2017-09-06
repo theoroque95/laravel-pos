@@ -15,12 +15,11 @@ class AuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user())
+        if (!$request->user())
         {
-            $next($request);
+            return redirect('/login');
         }
 
-        return redirect('/');
-
+        return $next($request);
     }
 }

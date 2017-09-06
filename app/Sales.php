@@ -57,31 +57,55 @@ class Sales extends Model
     }
 
     /**
+     * Get all sales
+     */
+    public function getSalesAll() {
+        return Sales::withTrashed()
+        ->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
+        ->join('users', 'users.id', 'sales.user_id')
+        ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
+        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')
+        ->get();
+    }
+
+    /**
      * Get real time sales from 00:00 of day up to current time
      */
     public function getSalesRealtime() {
-        return Sales::withTrashed()->where('created_at', '>=', Carbon::today())->where('created_at', '<=', Carbon::now())->get();
+        return Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
+        ->join('users', 'users.id', 'sales.user_id')
+        ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
+        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')->where('sales.created_at', '>=', Carbon::today())->where('sales.created_at', '<=', Carbon::now())->get();
     }
 
     /**
      * Get real time sales from previous hour to current time
      */
     public function getSalesHour() {
-        return Sales::withTrashed()->where('created_at', '>=', Carbon::now()->subHour())->where('created_at', '<=', Carbon::now())->get();
+        return Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
+        ->join('users', 'users.id', 'sales.user_id')
+        ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
+        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')->where('sales.created_at', '>=', Carbon::now()->subHour())->where('sales.created_at', '<=', Carbon::now())->get();
     }
 
     /**
      * Get real time sales from previous hour to current time
      */
     public function getSalesWeek() {
-        return Sales::withTrashed()->where('created_at', '>=', Carbon::now()->subWeek())->where('created_at', '<=', Carbon::now())->get();
+        return Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
+        ->join('users', 'users.id', 'sales.user_id')
+        ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
+        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')->where('sales.created_at', '>=', Carbon::now()->subWeek())->where('sales.created_at', '<=', Carbon::now())->get();
     }
 
     /**
      * Get real time sales from previous hour to current time
      */
     public function getSalesMonth() {
-        return App\Sales::withTrashed()->where('created_at', '>=', Carbon\Carbon::now()->subMonth())->where('created_at', '<=', Carbon\Carbon::now())->get();
+        return Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
+        ->join('users', 'users.id', 'sales.user_id')
+        ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
+        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')->where('sales.created_at', '>=', Carbon::now()->subMonth())->where('sales.created_at', '<=', Carbon::now())->get();
     }
 
     /**
