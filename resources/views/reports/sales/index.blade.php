@@ -36,6 +36,7 @@
                 <th>Tendered</th>
                 <th>Vat</th>
                 <th>Discount</th>
+                <th>Date</th>
                 <th>Status</th>
               </tr>
               </thead>
@@ -50,6 +51,7 @@
                   <td>&#8369;{{ sprintf('%0.2f', $sale->tendered)}}</td>
                   <td>&#8369;{{ sprintf('%0.2f', $sale->vat) }}</td>
                   <td>{{ $sale->discount_name == null ? '-' : $sale->discount_name }}</td>
+                  <td>{{ $sale->created_at->format('F j, Y, g:i a') }}</td>
                   @if ($sale->trashed())
                     <td><span class="label label-danger">VOIDED</span></td>
                   @else

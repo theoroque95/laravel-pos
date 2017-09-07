@@ -183,16 +183,18 @@ class ProductDetailsController extends Controller
                     'price' => $request['subprices.'.$key]
                 ]
             );
+        }
 
-            foreach($request['ingNames'] as $nameKey => $id) {
-                foreach ($request['ingPerSales.'.$nameKey] as $saleQuantity) {
-                    $productDetail->ingredients()->attach($id, [
+        foreach($request['ingNames'] as $key => $id) {
+            foreach ($request['ingPerSales'] as $key2 => $saleQuantities) {
+                foreach ($saleQuantities as $key3 => $saleQuantity) {
+                    $productDetail = ProductDetail::find($key);
+                    $productDetail->ingredients()->attach($id[$key3], [
                         'sale_quantity' => $saleQuantity
                     ]);
                 }
             }
         }
-
 
 
         return redirect()->back()->with('notification', 'The product has been updated.');

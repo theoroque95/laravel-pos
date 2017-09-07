@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReportRefTable extends Migration
+class CreateReportLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateReportRefTable extends Migration
      */
     public function up()
     {
-        Schema::create('report_ref', function (Blueprint $table) {
+        Schema::create('report_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('description');
+            $table->integer('report_id');
             $table->timestamps();
         });
+
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateReportRefTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('report_ref');
+        Schema::dropIfExists('report_logs');
     }
 }
