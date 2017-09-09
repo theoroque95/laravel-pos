@@ -40,7 +40,7 @@
                   <td>{{ $user->address }}</td>
                   <td><input type="checkbox" name="is_admin" disabled="true" {{ $user->is_admin ? 'checked' : '' }}></td>
                   <td>
-                    <div class="btn-group">
+                    <div class="btn-group-inline">
                       <a href="/staff/{{ $user->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $user->id }}" data-form="staff"><i class="fa fa-trash"></i></button>
                     </div>

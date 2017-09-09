@@ -34,7 +34,7 @@
                   <td>{{ ucfirst($product->category_name) }}</td>
                   <td>{{ $product->quantity_type_name }} ({{ $product->acronym }})</td>
                   <td>
-                    <div class="btn-group">
+                    <div class="btn-group-inline">
                       <a href="/details/{{ $product->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $product->id }}" data-form="product"><i class="fa fa-trash"></i></button>
                     </div>

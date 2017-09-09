@@ -54,7 +54,7 @@
                   </td>
                   <td>{{ $ingredient->quantity_type_name }} ({{ $ingredient->acronym }})</td>
                   <td>
-                    <div class="btn-group">
+                    <div class="btn-group-inline">
                       <a><button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" data-id="{{ $ingredient->id }}" data-form="ingredient"><i class="fa fa-trash"></i></button></a>
                       <a href="/ingredients/{{ $ingredient->id }}"><button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button></a>
                       <a><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-replenish" data-id="{{ $ingredient->id }}" data-acronym="{{ ucfirst($ingredient->quantity_type_name) }}"><i class="fa fa-plus"></i> Replenish</button></a>

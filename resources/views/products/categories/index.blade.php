@@ -30,7 +30,7 @@
                   <td>{{ $category->name }}</td>
                   <td>{{ $category->description }}</td>
                   <td>
-                    <div class="btn-group">
+                    <div class="btn-group-inline">
                       <a href="/categories/{{ $category->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $category->id }}" data-form="category"><i class="fa fa-trash"></i></button>
                     </div>

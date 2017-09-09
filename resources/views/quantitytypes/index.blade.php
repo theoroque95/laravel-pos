@@ -32,7 +32,7 @@
                   <td>{{ $quantityType->description }}</td>
                   <td>{{ $quantityType->acronym }}</td>
                   <td>
-                    <div class="btn-group">
+                    <div class="btn-group-inline">
                       <a href="/quantitytypes/{{ $quantityType->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $quantityType->id }}" data-form="quantity"><i class="fa fa-trash"></i></button>
                     </div>

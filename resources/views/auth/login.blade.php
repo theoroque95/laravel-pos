@@ -4,7 +4,7 @@
 
   <div class="login-box">
     <div class="login-logo">
-      <b>Login</b>
+      <b>Coffee Crib POS</b>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

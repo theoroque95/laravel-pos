@@ -32,7 +32,7 @@
                   <td>{{ $discount->description }}</td>
                   <td>{{ $discount->percentage }}</td>
                   <td>
-                    <div class="btn-group">
+                    <div class="btn-group-inline">
                       <a href="/discounts/{{ $discount->id }}"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button></a>
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete" data-id="{{ $discount->id }}" data-form="discount"><i class="fa fa-trash"></i></button>
                     </div>
