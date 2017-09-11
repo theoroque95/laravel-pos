@@ -161,14 +161,6 @@ class ProductDetailsController extends Controller
             }
         }
 
-        // Deleted Ingredients
-        if ($request['ingDeletes']) {
-            foreach ($request['ingDeletes'] as $key => $ingDeleteValues) {
-                $productDetail = ProductDetail::find($key);
-                $productDetail->ingredients()->detach($ingDeleteValues);
-            }
-        }
-
         // Update or Create Product Details
         $keys = array_keys($request['subnames']);
         foreach ($keys as $key) {
@@ -185,17 +177,18 @@ class ProductDetailsController extends Controller
             );
         }
 
+
         foreach($request['ingNames'] as $key => $id) {
-            foreach ($request['ingPerSales'] as $key2 => $saleQuantities) {
-                foreach ($saleQuantities as $key3 => $saleQuantity) {
-                    $productDetail = ProductDetail::find($key);
-                    $productDetail->ingredients()->attach($id[$key3], [
+            $productDetail = ProductDetail::find($key);
+            if ($productDetail) {
+                $productDetail->ingredients()->detach();
+                foreach ($request['ingPerSales'][$key] as $key2 => $saleQuantity) {
+                    $productDetail->ingredients()->attach($id[$key2], [
                         'sale_quantity' => $saleQuantity
                     ]);
                 }
             }
         }
-
 
         return redirect()->back()->with('notification', 'The product has been updated.');
     }

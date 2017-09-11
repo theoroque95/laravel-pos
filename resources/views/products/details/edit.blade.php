@@ -115,7 +115,7 @@
 
 	function addIngredient(categoryId, ingredientId) {
 		ingredientId = ingredientId + 1;
-		var category = $("#submenuId-".categoryId).val();
+		var category = $("#submenuId-"+categoryId).val();
 		$(".category-ingredient-"+categoryId).append('<div class="row ingredient-'+ingredientId+'"><input type="hidden" id="ingredient-'+categoryId+'-'+ingredientId+'" name="ingredientId['+category+']['+ingredientId+']"><div class="col-sm-5 no-padding-left"><select class="form-control select2" style="width: 100%;" name="ingNames['+category+']['+ingredientId+']"><option selected="selected">- Select Ingredient -</option>@foreach ($ingredients as $ingredient)<option value="{{ $ingredient->id }}">{{ ucfirst($ingredient->name) }} ({{ $ingredient->quantity_type_name }})</option>@endforeach</select></div><div class="col-sm-4 no-padding-right no-padding-left"><input type="number" class="form-control" placeholder="Deduct per sale" id="ingPerSale-'+categoryId+'-'+ingredientId+'" name="ingPerSales['+category+']['+ingredientId+']" required="true"></div><div class="col-sm-3 no-padding-right"><button class="btn btn-danger btn-sm" type="button" onclick="removeIngredient('+categoryId+','+ingredientId+')"><i class="fa fa-minus"></i></button></div></div>');
 		$('.btn-add-'+categoryId).attr('onclick','addIngredient('+categoryId+','+ingredientId+')');
 	}
