@@ -121,4 +121,9 @@ class Sales extends Model
     public function getProductsSoldCurrentTime() {
         return Sales::withTrashed()->where('created_at', '>=', Carbon::today())->where('created_at', '<=', Carbon::now())->sum('count_item');
     }
+
+    public function getProductsPerSales($id) {
+        $sales = Sales::withTrashed()->select('p.*', 'pd.id as pd_id', 'pd.name as pd_name', 'pd.quantity as pd_quantity', 'pd.price as pd_price', 'sp.quantity as sp_quantity')->join('sales_products as sp', 'sp.sales_id', 'sales.id')->join('product_details as pd', 'pd.id', 'sp.product_detail_id')->join('products as p', 'p.id', 'pd.product_id')->where('sales.id', $id)->get();
+
+    }
 }
