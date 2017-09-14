@@ -14,7 +14,7 @@
       <span class="sr-only">Toggle navigation</span>
     </a>
 
-    <div class="pull-right">
+    <div class="pull-right" style="line-height: 1.2">
       <!-- <div id="clockbox"></div> -->
       <br>
       <a href="/logout" id="logout">Logout</a>

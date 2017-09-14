@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
 
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-black">
 <div class="wrapper">
 
   <!-- Header -->

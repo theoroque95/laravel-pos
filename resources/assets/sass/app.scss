@@ -90,5 +90,22 @@
 
 #clockbox, #logout {
     margin-right: 15px;
-    color: #fff;
+    color: #000;
+    font-weight: bold;
+}
+
+.auth-page, .content-wrapper {
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('/images/coffee-bg.jpg') no-repeat center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.login-logo {
+	color: #fff;
+}
+
+.login-box {
+	margin-top: 15%;
 }
