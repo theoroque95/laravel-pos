@@ -10,6 +10,7 @@ use App\User;
 use App\Sales;
 use App\SalesProduct;
 use App\Ingredient;
+use App\DiscountsRef;
 use App\Traits\ReceiptTrait;
 use Hash;
 
@@ -20,9 +21,11 @@ class CashierController extends Controller
     public function show() {
     	$categories = CategoriesRef::all();
     	$ingredients = Ingredient::all();
+    	$discounts = DiscountsRef::all();
 		return view('pages.cashier')->with([
     		'categories' => $categories,
-    		'ingredients' => $ingredients
+    		'ingredients' => $ingredients,
+    		'discounts' => $discounts
     	]);;
 	}
 

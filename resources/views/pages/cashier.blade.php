@@ -126,6 +126,7 @@
 
 @include('partials.modalCashier')
 @include('partials.modalVoid')
+@include('partials.modalDiscount')
 @endsection
 
 @section('scripts')
@@ -287,7 +288,19 @@
   }
 
   function showDiscountModal() {
-    alert('Feature coming soon!');
+    $("#modal-discount").modal('show');
+  }
+
+  function applyDiscount() {
+    var discountId = $("#discount-coupon option:selected").val();
+    var discountName = $("#discount-coupon option:selected").attr('class');
+    var discountPercentage = parseFloat($("#discount-coupon option:selected").attr('percentage'))/100;
+    var receiptTotal = parseFloat($("#receipt-total").text());
+    var totalDiscount = parseFloat(receiptTotal * discountPercentage);
+    var discountedTotal = parseFloat(receiptTotal - totalDiscount);
+    $("#receipt-discount").text(parseToPeso(totalDiscount));
+    $("#receipt-total").text(parseToPeso(discountedTotal));
+    $("#modal-discount").modal('hide');
   }
 
   function setAmountDue(receiptSubtotal, tendered) {
