@@ -17,7 +17,7 @@
       <!-- left column -->
       <div class="col-xs-6">
         <!-- general form elements -->
-          <div class="box box-primary cashier-box">
+          <div class="box box-default cashier-box">
             <div class="box-header" style="height: 300px; overflow: auto;">
               <table class="table" id="table-receipt">
                 <thead>
@@ -71,7 +71,7 @@
           </div>
       </div>
       <div class="col-xs-6 no-print">
-        <div class="box box-primary cashier-box">
+        <div class="box box-default cashier-box">
           <div class="box-body" id="categories">
             <h4>1. Select a category</h4>
             <div class="category-wrapper">
@@ -301,6 +301,8 @@
     $("#receipt-discount").text(parseToPeso(totalDiscount));
     $("#receipt-total").text(parseToPeso(discountedTotal));
     $("#modal-discount").modal('hide');
+    // Add discount to input hidden
+    $("#form-cashier").append('<input type="hidden" name="discount" value="'+discountId+'">');
   }
 
   function setAmountDue(receiptSubtotal, tendered) {
@@ -338,18 +340,16 @@
     // Disable all menu button to prevent adding items upon finalize
     var tendered = parseFloat($("#modal-tendered").val());
     var total = parseFloat($("#receipt-total").text());
+    var discount = parseFloat($("#receipt-discount").text());
     var change = tendered - total;
 
     $("#modal-tendered").val("");
-    if (tendered == "") {
+
+    if ( ! $("#modal-tendered").val()) {
       $("#payment-error-message").text('Cannot be empty');
       $("#payment-error").fadeIn();
     }
-    else if (tendered == 0) {
-      $("#payment-error-message").text('Must be greater than P0.00');
-      $("#payment-error").fadeIn();
-    }
-    else if (tendered < total) {
+    else if ((tendered < total) && (discount != total)) {
       $("#payment-error-message").html('Must be greater than Total: P'+total);
       $("#payment-error").fadeIn();
     }

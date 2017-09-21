@@ -76,7 +76,8 @@ class CashierController extends Controller
 			'order_no' => $order,
 			'total' => $request['total'],
 			'tendered' => $request['tendered'],
-	        'vat' => $request['vat']
+	        'vat' => $request['vat'],
+	        'discount_id' => $request['discount']
 		]);
 
     	$noOfItems = 0;
@@ -124,6 +125,7 @@ class CashierController extends Controller
 			'total' => $sale->total,
 			'vat' => $sale->vat,
 			'tendered' => $sale->tendered,
+			'discount' => $sale->discount_id,
 			'cashier' => $user->first_name,
 			'noOfItems' => $sale->count_item,
 			'products' => $products,

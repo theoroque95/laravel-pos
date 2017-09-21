@@ -4,9 +4,9 @@
   <section class="sidebar">
     <!-- Sidebar user panel -->
     <div class="user-panel">
-      <div class="pull-left info">
+      <div class="info">
         <!-- TODO: User's name -->
-        <p>{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</p>
+        <p>Loggedin as: {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</p>
       </div>
     </div>
 
