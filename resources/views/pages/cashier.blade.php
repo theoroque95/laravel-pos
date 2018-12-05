@@ -175,6 +175,7 @@
           productId: productId
       },
       success : function(response) {
+        console.log(response);
         var submenus = response.submenus;
         var acronym = response.acronym;
         var ingredients = response.ingredients;
@@ -329,7 +330,7 @@
 
   var canvas = document.getElementById('canvas');
   var printer = null;
-  var ePosDev = new epson.ePOSDevice();
+  // var ePosDev = new epson.ePOSDevice();
 
   var gCashier, gNoOfItems, gOrderNo, gReceiptNo, gTendered, gTotal, gVat;
   var gProductDetails = [];
@@ -342,9 +343,7 @@
     var total = parseFloat($("#receipt-total").text());
     var discount = parseFloat($("#receipt-discount").text());
     var change = tendered - total;
-
-    $("#modal-tendered").val("");
-
+    
     if ( ! $("#modal-tendered").val()) {
       $("#payment-error-message").text('Cannot be empty');
       $("#payment-error").fadeIn();
@@ -401,8 +400,9 @@
           gProducts = (response.products).slice(0);
           gProductQuantities = (response.productQuantities).slice(0);
 
+          
           // FINALLY: Print the receipt
-          ePosDev.connect('192.168.192.168', '8008', cbConnect);
+          // ePosDev.connect('192.168.192.168', '8008', cbConnect);
         }
       });
     }

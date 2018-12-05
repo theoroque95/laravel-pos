@@ -9,7 +9,7 @@ trait ReceiptTrait
 {
     protected function setReceiptNo() {
         $receipt = DB::table('receipt_logs')->latest()->first();
-        $receiptNo = ((int)$receipt->receipt_no) + 1;
+        $receiptNo = empty($receipt->receipt_no) ? '00000001' : ((int)$receipt->receipt_no) + 1;
 
         $newReceipt = ReceiptLog::create([
             'receipt_no' => sprintf("%08s", $receiptNo)
@@ -20,7 +20,7 @@ trait ReceiptTrait
 
     protected function setOrderNo() {
         $sales = DB::table('sales')->latest()->first();
-        $orderNo = ((int)$sales->order_no) + 1;
+        $orderNo = empty($sales->order_no) ? '00000001' : ((int)$sales->order_no) + 1;
 
         return sprintf("%08s", $orderNo);
     }

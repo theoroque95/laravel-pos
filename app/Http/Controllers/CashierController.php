@@ -13,6 +13,7 @@ use App\Ingredient;
 use App\DiscountsRef;
 use App\Traits\ReceiptTrait;
 use Hash;
+use Auth;
 
 class CashierController extends Controller
 {
@@ -65,8 +66,8 @@ class CashierController extends Controller
 
 	public function submitTransaction(Request $request) {
 		// Temporary (find)
-    	$user = User::find(1);
-    	// $user = Auth::user();
+    	// $user = User::find(1);
+		$user = Auth::user();
 
     	$receipt = $this->setReceiptNo();
     	$order = $this->setOrderNo();

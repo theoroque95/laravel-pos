@@ -29,9 +29,9 @@
 <!-- ./wrapper -->
 
 <script src="{{ URL::asset('js/app.js') }}"></script>
-<script src="{{ URL::asset('js/epos-2.3.0.js') }}"></script>
-<script src="{{ URL::asset('js/epos-print-editor-en.js') }}"></script>
-<script src="{{ URL::asset('js/editor-export.js') }}"></script>
+<!-- <script src="{{ URL::asset('js/epos-2.3.0.js') }}"></script>
+<script src="{{ URL::asset('js/epos-print-editor-en.js') }}"></script> -->
+<!-- <script src="{{ URL::asset('js/editor-export.js') }}"></script> -->
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   @include('partials.scripts')
