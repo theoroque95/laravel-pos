@@ -24,24 +24,26 @@ class SalesController extends Controller
 		$active = '';
 
 		if (!$table) {
-			$sales = $salesArg->getSalesAll();
+			$sales = $salesArg->getSalesAll()['list'];
+			$grandTotal = $salesArg->getSalesAll()['grand_total'];
 			$active = 'none';
 		}
-		else if ($table == 'realtime') {
-			$sales = $salesArg->getSalesRealtime();
-		}
-		else if ($table == 'hour') {
-			$sales = $salesArg->getSalesHour();
+		else if ($table == 'day') {
+			$sales = $salesArg->getSalesDay()['list'];
+			$grandTotal = $salesArg->getSalesDay()['grand_total'];
 		}
 		else if ($table == 'week') {
-			$sales = $salesArg->getSalesWeek();
+			$sales = $salesArg->getSalesWeek()['list'];
+			$grandTotal = $salesArg->getSalesWeek()['grand_total'];
 		}
 		else if ($table == 'month') {
-			$sales = $salesArg->getSalesMonth();
+			$sales = $salesArg->getSalesMonth()['list'];
+			$grandTotal = $salesArg->getSalesMonth()['grand_total'];
 		}
-
+		
 		return view('reports.sales.index')->with([
 			'sales' => $sales,
+			'grand_total' => $grandTotal,
 			'table' => $table
 		]);
 	}

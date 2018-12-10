@@ -14,6 +14,7 @@ use App\DiscountsRef;
 use App\Traits\ReceiptTrait;
 use Hash;
 use Auth;
+use Carbon\Carbon;
 
 class CashierController extends Controller
 {
@@ -69,16 +70,18 @@ class CashierController extends Controller
     	// $user = User::find(1);
 		$user = Auth::user();
 
-    	$receipt = $this->setReceiptNo();
-    	$order = $this->setOrderNo();
+		dd(Carbon::now()->addHours(8));
 
+    	$receipt = $this->setReceiptNo();
+		$order = $this->setOrderNo();
+		
     	$sale = $user->sales()->create([
 			'receipt_id' => $receipt->id,
 			'order_no' => $order,
 			'total' => $request['total'],
 			'tendered' => $request['tendered'],
 	        'vat' => $request['vat'],
-	        'discount_id' => $request['discount']
+			'discount_id' => $request['discount']
 		]);
 
     	$noOfItems = 0;

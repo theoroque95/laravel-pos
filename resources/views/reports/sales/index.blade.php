@@ -6,12 +6,14 @@
   <section class="content-header">
     <div class="pull-left">
     <a href="/sales" class="btn btn-info">All</a>
-      <a href="/sales?table=realtime" class="btn btn-info">Realtime</a>
       <a href="/sales?table=month" class="btn btn-info">Month</a>
       <a href="/sales?table=week" class="btn btn-info">Week</a>
-      <a href="/sales?table=hour" class="btn btn-info">Hour</a>
+      <a href="/sales?table=day" class="btn btn-info">Day</a>
     </div>
     <div class="pull-right">
+      <span style="color: white; font-size: 18px; font-weight: 600;">
+        Total Sales: &#8369;{{ sprintf('%0.2f', $grand_total) }} &nbsp;
+      </span>
       <button type="button" class="btn btn-success"><i class="fa fa-printer"></i> Print Report</button>
     </div>
   </section>
@@ -51,7 +53,7 @@
                   <td>&#8369;{{ sprintf('%0.2f', $sale->tendered)}}</td>
                   <td>&#8369;{{ sprintf('%0.2f', $sale->vat) }}</td>
                   <td>{{ $sale->discount_name == null ? '-' : $sale->discount_name }}</td>
-                  <td>{{ $sale->created_at->format('F j, Y, g:i a') }}</td>
+                  <td>{{ $sale->created_at->addHours(8)->format('F j, Y, g:i a') }}</td>
                   @if ($sale->trashed())
                     <td><span class="label label-danger">VOIDED</span></td>
                   @else

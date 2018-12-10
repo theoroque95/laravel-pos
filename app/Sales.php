@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
+use DB;
 
 class Sales extends Model
 {
@@ -18,6 +19,8 @@ class Sales extends Model
     protected $dates = ['deleted_at'];
 
     protected $table = 'sales';
+
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -60,52 +63,89 @@ class Sales extends Model
      * Get all sales
      */
     public function getSalesAll() {
-        return Sales::withTrashed()
+        $grandTotal = Sales::withTrashed()
+        ->sum('total');
+
+        $list = Sales::withTrashed()
         ->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
         ->join('users', 'users.id', 'sales.user_id')
         ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
         ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')
         ->get();
+        
+        return [
+            'list' => $list,
+            'grand_total' => $grandTotal
+        ];
     }
 
     /**
-     * Get real time sales from 00:00 of day up to current time
+     * Get real time sales from start of day 00:00 to current time
      */
-    public function getSalesRealtime() {
-        return Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
+    public function getSalesDay() {
+        $grandTotal = Sales::withTrashed()
+        ->where('sales.created_at', '>=', Carbon::today())
+        ->where('sales.created_at', '<=', Carbon::now())
+        ->sum('total');
+        
+        $list = Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
         ->join('users', 'users.id', 'sales.user_id')
         ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
-        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')->where('sales.created_at', '>=', Carbon::today())->where('sales.created_at', '<=', Carbon::now())->get();
-    }
-
-    /**
-     * Get real time sales from previous hour to current time
-     */
-    public function getSalesHour() {
-        return Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
-        ->join('users', 'users.id', 'sales.user_id')
-        ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
-        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')->where('sales.created_at', '>=', Carbon::now()->subHour())->where('sales.created_at', '<=', Carbon::now())->get();
+        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')
+        ->where('sales.created_at', '>=', Carbon::today())
+        ->where('sales.created_at', '<=', Carbon::now())
+        ->get();
+        
+        return [
+            'list' => $list,
+            'grand_total' => $grandTotal
+        ];
     }
 
     /**
      * Get real time sales from previous hour to current time
      */
     public function getSalesWeek() {
-        return Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
+        $grandTotal = Sales::withTrashed()
+        ->where('sales.created_at', '>=', Carbon::now()->subWeek())
+        ->where('sales.created_at', '<=', Carbon::now())
+        ->sum('total');
+        
+        $list = Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
         ->join('users', 'users.id', 'sales.user_id')
         ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
-        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')->where('sales.created_at', '>=', Carbon::now()->subWeek())->where('sales.created_at', '<=', Carbon::now())->get();
+        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')
+        ->where('sales.created_at', '>=', Carbon::now()->subWeek())
+        ->where('sales.created_at', '<=', Carbon::now())
+        ->get();
+        
+        return [
+            'list' => $list,
+            'grand_total' => $grandTotal
+        ];
     }
 
     /**
      * Get real time sales from previous hour to current time
      */
     public function getSalesMonth() {
-        return Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
+        $grandTotal = Sales::withTrashed()
+        ->where('sales.created_at', '>=', Carbon::now()->subWeek())
+        ->where('sales.created_at', '<=', Carbon::now())
+        ->sum('total');
+        
+        $list = Sales::withTrashed()->select('users.first_name', 'users.last_name', 'sales.*', 'discounts_ref.name as discount_name', 'discounts_ref.percentage as discount_percentage', 'receipt_logs.receipt_no')
         ->join('users', 'users.id', 'sales.user_id')
         ->join('receipt_logs', 'receipt_logs.id', 'sales.receipt_id')
-        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')->where('sales.created_at', '>=', Carbon::now()->subMonth())->where('sales.created_at', '<=', Carbon::now())->get();
+        ->leftJoin('discounts_ref', 'discounts_ref.id', 'sales.discount_id')
+        ->where('sales.created_at', '>=', Carbon::now()->subMonth())
+        ->where('sales.created_at', '<=', Carbon::now())
+        ->get();
+        
+        return [
+            'list' => $list,
+            'grand_total' => $grandTotal
+        ];
     }
 
     /**
