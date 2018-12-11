@@ -70,8 +70,6 @@ class CashierController extends Controller
     	// $user = User::find(1);
 		$user = Auth::user();
 
-		dd(Carbon::now()->addHours(8));
-
     	$receipt = $this->setReceiptNo();
 		$order = $this->setOrderNo();
 		
