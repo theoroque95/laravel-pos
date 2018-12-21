@@ -80,10 +80,16 @@ Route::group(['middleware' => 'authenticate'], function () {
 
 		Route::group(['prefix' => 'sales', 'as' => 'sales::'], function () {
 		    Route::get('/', 'SalesController@show');
-		    Route::get('/realtime', 'SalesController@showRealtime');
 		    Route::get('/day', 'SalesController@showDay');
 		    Route::get('/week', 'SalesController@showWeek');
 		    Route::get('/month', 'SalesController@showMonth');
+		});
+
+		Route::group(['prefix' => 'items', 'as' => 'items::'], function () {
+		    Route::get('/', 'ItemsController@show');
+		    Route::get('/day', 'ItemsController@showDay');
+		    Route::get('/week', 'ItemsController@showWeek');
+		    Route::get('/month', 'ItemsController@showMonth');
 		});
 
 		Route::post('/delete', 'DeleteController@delete');

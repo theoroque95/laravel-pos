@@ -149,6 +149,34 @@ class Sales extends Model
     }
 
     /**
+     * Get all items sold per sale
+     */
+    public function getItemsAll() {
+        $items = Sales::select('sales.order_no', 'rl.receipt_no', 'u.first_name', 'p.name as product', 'cr.name as category', 'pd.name as subcategory', 'pd.quantity', 'qtr.acronym', 'pd.price', 'sales.created_at')
+        ->join('sales_products as sp', 'sp.sales_id', 'sales.id')
+        ->join('product_details as pd', 'pd.id', 'sp.product_detail_id')
+        ->join('products as p', 'p.id', 'pd.product_id')
+        ->join('categories_ref as cr', 'cr.id', 'p.category_id')
+        ->join('quantity_types_ref as qtr', 'qtr.id', 'p.quantity_type_id')
+        ->join('users as u', 'u.id', 'sales.user_id')
+        ->join('receipt_logs as rl', 'rl.id', 'sales.receipt_id')
+        ->get();
+
+        $top = Sales::select(DB::raw('count(p.id) as orders , p.name as product'))
+        ->join('sales_products as sp', 'sp.sales_id', 'sales.id')
+        ->join('product_details as pd', 'pd.id', 'sp.product_detail_id')
+        ->join('products as p', 'p.id', 'pd.product_id')
+        ->groupBy('p.id')
+        ->orderByDesc('orders')
+        ->get();
+
+        return [
+            'list' => $items,
+            'top' => $top
+        ];
+    }
+
+    /**
      * Get real time number of orders from 00:00 of day up to current time
      */
     public function getOrdersCurrentTime() {
@@ -164,6 +192,5 @@ class Sales extends Model
 
     public function getProductsPerSales($id) {
         $sales = Sales::withTrashed()->select('p.*', 'pd.id as pd_id', 'pd.name as pd_name', 'pd.quantity as pd_quantity', 'pd.price as pd_price', 'sp.quantity as sp_quantity')->join('sales_products as sp', 'sp.sales_id', 'sales.id')->join('product_details as pd', 'pd.id', 'sp.product_detail_id')->join('products as p', 'p.id', 'pd.product_id')->where('sales.id', $id)->get();
-
     }
 }

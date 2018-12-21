@@ -40,7 +40,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="/sales"><i class="fa fa-money"></i> Sales</a></li>
-            <li><a href="#"><i class="fa fa-cutlery"></i> Items Sold</a></li>
+            <li><a href="/items"><i class="fa fa-cutlery"></i> Items Sold</a></li>
           </ul>
         </li>
       @endif
