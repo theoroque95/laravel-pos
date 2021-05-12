@@ -20,7 +20,7 @@
     "bootstrap": "4.0.0-alpha.6",
     "bootstrap-datepicker": "^1.7.1",
     "bootstrap-daterangepicker": "^2.1.25",
-    "chart.js": "1.0.*",
+    "chart.js": "2.9.*",
     "ckeditor": "^4.7.0",
     "datatables.net": "^1.10.15",
     "datatables.net-bs": "^1.10.15",
